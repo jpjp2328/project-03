@@ -1,9 +1,7 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const friendSchema = require('./Friend');
-
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
     {
         username: {
             type: String,
@@ -23,7 +21,7 @@ const userSchema = new mongoose.Schema(
         profilePicture: {
             type: String,
         },
-        friends: [friendSchema],
+        friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     },
     {
         toJSON: {

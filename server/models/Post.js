@@ -1,5 +1,8 @@
 const { Schema, model } = require('mongoose');
 
+const likeSchema = require('./Like');
+const commentSchema = require('./Comment');
+
 const postSchema = new Schema(
     {
         text: {
@@ -14,12 +17,16 @@ const postSchema = new Schema(
         tags: [{
             type: Schema.Types.ObjectId, ref: 'Tag'
         }],
-        likes: [{
-            type: Schema.Types.ObjectId, ref: 'Like'
-        }],
-        comments: [{
-            type: Schema.Types.ObjectId, ref: 'Comment'
-        }],
+        likes: [likeSchema],
+        likeCount: {
+            type: Number, 
+            default: 0
+        },
+        comments: [commentSchema],
+        commentCount: {
+            type: Number,
+            default: 0
+        },
         createdAt: {
             type: Date, default: Date.now
         }

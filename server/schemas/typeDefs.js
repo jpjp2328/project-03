@@ -76,22 +76,23 @@ const typeDefs = gql`
     comments(postId: ID!): [Comment]
   }
 
-  type Mutations
-  login(email: String!, password: String!): Auth
-  addUser(username: String!, email: String!, password: String!): Auth
-  createPost(text: String!, image: String, tags: [String]): Post
-  updatePost(_id: ID!, text: String, image: String, tags: [String]): Post
-  deletePost(_id: ID!): User
-  createProduct(name: String!, description: String, price: Float, image: String, category: String): Product
-  updateProduct(_id: ID!, name: String, description: String, price: Float, image: String, category: String): Product
-  deleteProduct(_id: ID!): User
-  addFriend(userId: ID!): User
-  removeFriend(userId: ID!): User
-  likePost(postID: ID!): Post
-  unlikePost(postID: ID!): Post
-  createComment(postId: ID!, text: String!): Comment
-  updateComment(_id: ID!, text: String): Comment
-  deleteComment(_id: ID!): Post
+  type Mutations {
+    login(email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
+    createPost(text: String!, image: String, tags: [String]): Post
+    updatePost(_id: ID!, text: String, image: String, tags: [String]): Post
+    deletePost(_id: ID!): User
+    createProduct(name: String!, description: String, price: Float, image: String, category: String): Product
+    updateProduct(_id: ID!, name: String, description: String, price: Float, image: String, category: String): Product
+    deleteProduct(_id: ID!): User
+    addFriend(userId: ID!): User
+    removeFriend(userId: ID!): User
+    likePost(postID: ID!): Post
+    unlikePost(postID: ID!): Post
+    createComment(postId: ID!, text: String!): Comment
+    updateComment(_id: ID!, text: String): Comment
+    deleteComment(_id: ID!): Post
+  }
 `;
 
 module.exports = typeDefs;

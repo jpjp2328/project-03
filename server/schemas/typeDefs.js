@@ -46,5 +46,15 @@ const typeDefs = gql`
     name: String!
   }
 
-  
+  type Like {
+    _id: ID!
+    user: User!
+  }
+
+  type Comment {
+    _id: ID!
+    text String!
+    author: User!
+    createdAt: String
+  }
 `

@@ -36,5 +36,15 @@ const typeDefs = gql`
     createdAt: String
   }
 
+  type Tag {
+    _id: ID!
+    name: String!
+  }
+
+  type Category {
+    _id: ID!
+    name: String!
+  }
+
   
 `

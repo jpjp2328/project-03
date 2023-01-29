@@ -57,4 +57,22 @@ const typeDefs = gql`
     author: User!
     createdAt: String
   }
+
+  type Auth {
+    token: ID!
+    user: User
+  }
+
+  type Query {
+    user(_id: ID!): User
+    users: [User]
+    post(_id: ID!): Post
+    posts: [Post]
+    product(_id: ID!): Product
+    products: [Product]
+    tags: [Tag]
+    categories: [Category]
+    likes(postId: ID!): [Like]
+    comments(postId: ID!): [Comment]
+  }
 `

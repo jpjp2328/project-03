@@ -25,4 +25,16 @@ const typeDefs = gql`
     createdAt: String
   }
 
+  type Product {
+    _id: ID!
+    name: String!
+    description: String
+    price: Float
+    image: String
+    category: Category
+    seller: User
+    createdAt: String
+  }
+
+  
 `

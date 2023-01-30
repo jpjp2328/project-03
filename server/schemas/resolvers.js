@@ -114,14 +114,55 @@ const resolvers = {
                 await Post.findByIdAndDelete(args._id);
                 return User.findByIdAndUpdate(
                     context.user._id,
-                    { $pull: { posts:args._id } },
+                    { $pull: { posts: args._id } },
                     { new: true }
                 );
             }
             throw new AuthenticationError('You need to be logged in!');
         },
-        
-    }
+        createProduct: async (parent, args, context) => {
+            if (context.user) {
+                let category = await Category.findOne({ name: args.category });
+                if (!category) {
+                    category = await Category.create({ name: args.category });
+                }
+                const product = await Product.create({ ...args, seller: context.user._id, category: category._id });
+                await User.findByIdAndUpdate(
+                    context.user._id,
+                    { $push: { products: product._id } },
+                    { new: true }
+                );
+                return product;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        updateProduct: async (parent, args, context) => {
+            if (context.user) {
+                const product = await Product.findOne({ _id: args._id, seller: context.user._id });
+                if (product) {
+                    const updatedProduct = await Product.findByIdAndUpdate(
+                        args._id,
+                        { $set: { ...args } },
+                        { new: true }
+                    )
+                };
+                return updatedProduct;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        deleteProduct: async (parent, args, context) => {
+            if (context.user) {
+                const product = await Product.findByIdAndDelete(args.id);
+                await User.findByIdAndUpdate(
+                    context.user._id,
+                    { $pull: { products: product._id } },
+                    { new: true }
+                );
+                return product;
+            }
+            throw new AuthenticationError('You need to be logged in!')
+        },
 
+    }
 
 }

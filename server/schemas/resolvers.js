@@ -206,8 +206,60 @@ const resolvers = {
             }
             throw new AuthenticationError('You need to be logged in!');
         },
-        
+        createComment: async (parent, args, context) => {
+            if (context.user) {
+                const post = await Post.findById(args.postId);
+                if (!post) {
+                    throw new Error('Post not found!');
+                }
 
-    }
+                const comment = {
+                    text: args.text,
+                    author: context.user._id
+                };
 
-}
+                post.comments.push(comment);
+                const updatedPost = await post.save();
+
+                return comment;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        updateComment: async (parent, args, context) => {
+            if (context.user) {
+                const post = await Post.findOne({
+                    'comments._id': args._id
+                });
+                if (!post) {
+                    throw new Error('Comment not found');
+                }
+
+                const comment = post.comments.id(args._id);
+                comment.text = args.text;
+                const updatedPost = await post.save();
+
+                return comment;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        deleteComment: async (parent, args, context) => {
+            if (context.user) {
+                const post = await Post.findOne({
+                    'comments._id': args._id
+                });
+                if (!post) {
+                    throw new Error('Comment not found');
+                }
+
+                const comment = post.comments.id(args._id);
+                comment.remove();
+                const updatedPost = await post.save();
+
+                return updatedPost;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        }
+    },
+};
+
+module.exports = resolvers;

@@ -162,6 +162,51 @@ const resolvers = {
             }
             throw new AuthenticationError('You need to be logged in!')
         },
+        addFriend: async (parent, args, context) => {
+            if (context.user) {
+                const user = await User.findByIdAndUpdate(
+                    context.user._id,
+                    { $push: { friends: args.friendId } },
+                    { new: true }
+                );
+                return user;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        removeFriend: async (parent, args, context) => {
+            if (context.user) {
+                const user = await User.findByIdAndUpdate(
+                    context.user._id,
+                    { $pull: { friends: args.friendId } },
+                    { new: true }
+                );
+                return user;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        likePost: async (parent, args, context) => {
+            if (context.user) {
+                const post = await Post.findByIdAndUpdate(
+                    args.postID,
+                    { $addToSet: { likes: context.user._id } },
+                    { new: true }
+                );
+                return post;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        unlikePost: async (parent, args, context) => {
+            if (context.user) {
+                const post = await Post.findByIdAndUpdate(
+                    args.postID,
+                    { $pull: { likes: context.user._id } },
+                    { new: true }
+                );
+                return post;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        
 
     }
 

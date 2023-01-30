@@ -9,7 +9,7 @@ const resolvers = {
                 return User.findOne({ _id: context.user._id })
                     .populate(['friends', 'posts', 'products']);
             }
-            throw new AuthenticationError("You need to be logged in!")
+            throw new AuthenticationError("You need to be logged in!");
         },
         post: async (parents, args) => {
             return Post.findOne({ _id: args._id })
@@ -86,6 +86,41 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
+        createPost: async (parent, args, context) => {
+            if (context.user) {
+                const post = await Post.create({ ...args, author: context.user._id });
+                await User.findByIdAndUpdate(
+                    context.user._id,
+                    { $push: { posts: post._id } },
+                    { new: true }
+                );
+                return post;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        updatePost: async (parent, args, context) => {
+            if (context.user) {
+                const post = await Post.findByIdAndUpdate(
+                    args._id,
+                    { $set: { ...args } },
+                    { new: true }
+                );
+                return post;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        deletePost: async (parent, args, context) => {
+            if (context.user) {
+                await Post.findByIdAndDelete(args._id);
+                return User.findByIdAndUpdate(
+                    context.user._id,
+                    { $pull: { posts:args._id } },
+                    { new: true }
+                );
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        
     }
 
 

@@ -64,6 +64,7 @@ const typeDefs = gql`
   }
 
   type Query {
+    me(_id: ID!): User
     user(_id: ID!): User
     post(_id: ID!): Post
     posts(tag: ID!, name: String): [Post]

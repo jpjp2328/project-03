@@ -4,10 +4,20 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        user: async (parent, args, context) => {
+        me: async (parent, args, context) => {
             if (context.user) {
                 return User.findOne({ _id: context.user._id })
                     .populate(['friends', 'posts', 'products']);
+            }
+            throw new AuthenticationError("You need to be logged in!");
+        },
+        user: async (parent, args, context) => {
+            if (context.user) {
+                const user = await User.findById(args._id);
+                if (!user) {
+                    throw new Error('User not found!');
+                }
+                return user;
             }
             throw new AuthenticationError("You need to be logged in!");
         },
@@ -221,7 +231,7 @@ const resolvers = {
                 post.comments.push(comment);
                 const updatedPost = await post.save();
 
-                return comment;
+                return updatedPost;
             }
             throw new AuthenticationError('You need to be logged in!');
         },
@@ -238,7 +248,7 @@ const resolvers = {
                 comment.text = args.text;
                 const updatedPost = await post.save();
 
-                return comment;
+                return updatedPost;
             }
             throw new AuthenticationError('You need to be logged in!');
         },

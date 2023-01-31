@@ -33,6 +33,7 @@ db.once('open', async () => {
     // Seeding Users
     await User.deleteMany();
 
+    // users don't have posts and products seeded, as they are seeded after users
     const users = await User.insertMany([
         {
             username: 'jpjp2328',

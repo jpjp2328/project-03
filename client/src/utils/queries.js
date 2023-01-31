@@ -7,7 +7,7 @@ export const GET_TAGS = gql`
         name
     }
   }
-`
+`;
 
 export const GET_CATEGORIES = gql `
   query Query {
@@ -16,21 +16,28 @@ export const GET_CATEGORIES = gql `
         name
     }
   }
-`
+`;
+
 export const GET_POST = gql`
-`
+`;
+
 export const GET_ALL_POSTS = gql`
-`
+`;
+
 export const GET_PRODUCTS = gql`
-`
+`;
+
 export const GET_ALL_PRODUCTS = gql`
-`
+`;
+
 // need 'me' query in schema
 export const GET_PROFILE = gql`
-`
+`;
+
 // update 'user' query in schema
 export const GET_USER = gql`
-`
+`;
+
 
 //GET_FRIENDS? or can get them via User
 

@@ -10,6 +10,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // importing components and pages
 import Navbar from './components/Navbar/Navbar'
+import Footer from './components/Footer/footer'
+import Home from './pages/Home'
 
 
 const httpLink = createHttpLink({
@@ -40,8 +42,9 @@ function App() {
         <>
           <Navbar />
           <Routes>
-
+            <Route path="/" element={<Home />} />
           </Routes>
+          <Footer />
         </>
       </Router>
     </ApolloProvider>

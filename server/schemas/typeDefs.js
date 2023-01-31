@@ -75,7 +75,7 @@ const typeDefs = gql`
     comments(postId: ID!): [Comment]
   }
 
-  type Mutations {
+  type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     createPost(text: String!, image: String, tags: [String]): Post

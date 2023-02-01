@@ -52,6 +52,7 @@ const Signup = () => {
     return (
         <>
             <div className='container p-5'>
+                <h4 className='py-3'> Signup now! </h4>
                 {/* This is needed for the validation functionality above */}
                 <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                     {/* show alert if server response is bad */}

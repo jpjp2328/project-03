@@ -13,16 +13,9 @@ const typeDefs = gql`
   }
 
   type Post {
-    _id: ID!
-    text: String!
-    image: String
-    author: User!
-    tags: [Tag]
-    likes: [Like]
-    likeCount: Int
-    comments: [Comment]
-    commentCount: Int
-    createdAt: String
+    id: ID!
+    title: String!
+    description: String!
   }
 
   type Product {
@@ -64,7 +57,9 @@ const typeDefs = gql`
   }
 
   type Query {
-    me(_id: ID!): User
+    totalPosts: Int!
+    me: String!
+    mee(_id: ID!): User
     user(_id: ID!): User
     post(_id: ID!): Post
     posts(tag: ID!, name: String): [Post]

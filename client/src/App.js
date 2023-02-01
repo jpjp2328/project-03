@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // importing components and pages
 import Home from './pages/Home';
 import Navbar from './components/Navbar/Navbar';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 const client = new ApolloClient({
   uri: 'http://localhost:3001/graphql',
@@ -21,6 +23,14 @@ function App() {
             <Route
               exact path='/'
               element={<Home />}
+            />
+            <Route
+              exact path='/login'
+              element={<Login />}
+            />
+            <Route
+              exact path='/signup'
+              element={<Signup />}
             />
           </Routes>
         </>

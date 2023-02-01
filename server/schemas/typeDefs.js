@@ -56,6 +56,12 @@ const typeDefs = gql`
     user: User
   }
 
+  #input types
+  input PostInput {
+    title: String!
+    description: String!
+  }
+
   # Query types
   type Query {
     totalPosts: Int!
@@ -71,12 +77,6 @@ const typeDefs = gql`
     categories: [Category]
     likes(postId: ID!): [Like]
     comments(postId: ID!): [Comment]
-  }
-
-  #input types
-  input PostInput {
-    title: String!
-    description: String!
   }
 
   # Mutation types

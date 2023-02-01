@@ -1,57 +1,23 @@
-import React from 'react';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { ApolloClient, InMemoryCache } from '@apollo/client'
 
 // importing components and pages
-import Navbar from './components/Navbar/Navbar'
-import Footer from './components/Footer/footer'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Profile from './pages/Profile'
-
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
-
-const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  const token = localStorage.getItem('id_token');
-  // return the headers to the context so httpLink can read them
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
+import { GET_ALL_POSTS } from './utils/queries';
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  uri: 'http://localhost:3001/graphql',
   cache: new InMemoryCache(),
 });
 
 function App() {
+  const [posts, setPosts] = useState([])
+  client.query({
+    query: GET_ALL_POSTS
+  }).then(result => setPosts(result.data.allPosts));
+
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/profile/:userId" element={<Profile />} />
-          </Routes>
-          <Footer />
-        </>
-      </Router>
-    </ApolloProvider>
+    <p>Hello</p>
   );
-}
+};
 
 export default App;

@@ -51,7 +51,7 @@ const Signup = () => {
 
     return (
         <>
-            <div className='container py-5'>
+            <div className='container p-5'>
                 {/* This is needed for the validation functionality above */}
                 <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                     {/* show alert if server response is bad */}

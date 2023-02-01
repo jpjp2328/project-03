@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, useLazyQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 
 
 // importing queries

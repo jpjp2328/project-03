@@ -7,8 +7,9 @@ const { posts } = require('../temp')
 const resolvers = {
     Query: {
         totalPosts: () => posts.length,
+        allPosts: () => posts,
         me: () => 'Jeff',
-        mee: async (parent, args, context) => {
+        profile: async (parent, args, context) => {
             if (context.user) {
                 return User.findOne({ _id: context.user._id })
                     .populate(['friends', 'posts', 'products']);
@@ -78,6 +79,16 @@ const resolvers = {
     },
 
     Mutation: {
+        newPost: (parent, args) => {
+            console.log(args);
+            const post = {
+                id: posts.length + 1,
+                title: args.title,
+                description: args.description
+            }
+            posts.push(post)
+            return post;
+        },
         addUser: async (parent, { username, email, password }) => {
             const user = await User.create({ username, email, password });
             const token = signToken(user);

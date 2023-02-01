@@ -58,8 +58,9 @@ const typeDefs = gql`
 
   type Query {
     totalPosts: Int!
+    allPosts: [Post]
     me: String!
-    mee(_id: ID!): User
+    profile(_id: ID!): User
     user(_id: ID!): User
     post(_id: ID!): Post
     posts(tag: ID!, name: String): [Post]
@@ -72,6 +73,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    newPost(title: String!, description: String!): Post
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     createPost(text: String!, image: String, tags: [String]): Post

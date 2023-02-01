@@ -56,6 +56,7 @@ const typeDefs = gql`
     user: User
   }
 
+  # Query types
   type Query {
     totalPosts: Int!
     allPosts: [Post]
@@ -72,8 +73,15 @@ const typeDefs = gql`
     comments(postId: ID!): [Comment]
   }
 
+  #input types
+  input PostInput {
+    title: String!
+    description: String!
+  }
+
+  # Mutation types
   type Mutation {
-    newPost(title: String!, description: String!): Post
+    newPost(input: PostInput!): Post!
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     createPost(text: String!, image: String, tags: [String]): Post

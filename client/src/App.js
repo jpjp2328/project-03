@@ -58,7 +58,7 @@ function App() {
               element={<MyProfile />}
             />
             <Route
-              exact path='/create/post'
+              exact path='/post/create'
               element={<CreatePost />}
             />
             <Route

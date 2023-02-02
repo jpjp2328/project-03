@@ -11,7 +11,7 @@ const FriendList = () => {
                 <>
                     <div className='container-fluid pt-5'>
                         <div className='row'>
-                            <div className='col-md-4'>
+                            <div className='col-md-2'>
                                 <nav>
                                     <ul className='nav flex-column'>
                                         <li className='nav-item'>
@@ -20,7 +20,7 @@ const FriendList = () => {
                                             </Link>
                                         </li>
                                         <li className='nav-item'>
-                                            <Link className='nav-link' to='/create/post'>
+                                            <Link className='nav-link' to='/post/create'>
                                                 Post
                                             </Link>
                                         </li>
@@ -32,7 +32,7 @@ const FriendList = () => {
                                     </ul>
                                 </nav>
                             </div>
-                            <div className='col-md-4'>
+                            <div className='col-md-10'>
                                 Coming Soon!
                             </div>
                         </div>

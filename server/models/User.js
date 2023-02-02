@@ -18,6 +18,9 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
+        name: {
+            type: String,
+        },
         profilePicture: {
             type: Array,
             default: {
@@ -27,17 +30,18 @@ const userSchema = new Schema(
         },
         about: {
           type: String  
-        },
-        friends: [{
-            type: Schema.Types.ObjectId, ref: 'User'
-        }],
-        posts: [{
-            type: Schema.Types.ObjectId, ref: 'Post'
-        }],
-        products: [{
-            type: Schema.Types.ObjectId, ref: 'Product'
-        }]
+        }
+        // friends: [{
+        //     type: Schema.Types.ObjectId, ref: 'User'
+        // }],
+        // posts: [{
+        //     type: Schema.Types.ObjectId, ref: 'Post'
+        // }],
+        // products: [{
+        //     type: Schema.Types.ObjectId, ref: 'Product'
+        // }]
     },
+    { timestamps: true },
     {
         toJSON: {
             virtuals: true,

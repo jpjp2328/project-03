@@ -111,6 +111,18 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
+        updateUser: async (parent, args, context) => {
+            if (context.user) {
+                console.log(args)
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { ...args.input },
+                    { new: true }
+                ).exec();
+                return updatedUser;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
         createPost: async (parent, args, context) => {
             if (context.user) {
                 const post = await Post.create({ ...args, author: context.user._id });

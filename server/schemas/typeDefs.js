@@ -3,13 +3,18 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
   type User {
     _id: ID!
-    username: String!
-    email: String!
-    password: String!
-    profilePic: String
-    friends: [User]
-    posts: [Post]
-    products: [Product]
+    username: String
+    email: String
+    password: String
+    name: String
+    profilePicture: [Image]
+    about: String
+    createdAt: String
+  }
+
+  type Image {
+    url: String
+    public_id: String
   }
 
   type Post {
@@ -62,6 +67,18 @@ const typeDefs = gql`
     description: String!
   }
 
+  input ImageInput {
+    url: String
+    public_id: String
+  }
+
+  input UpdateUserInput {
+    username: String
+    name: String
+    profilePicture: [ImageInput]
+    about: String
+  }
+
   # Query types
   type Query {
     totalPosts: Int!
@@ -84,6 +101,7 @@ const typeDefs = gql`
     newPost(input: PostInput!): Post!
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    updateUser(input: UpdateUserInput): User!
     createPost(text: String!, image: String, tags: [String]): Post
     updatePost(_id: ID!, text: String, image: String, tags: [String]): Post
     deletePost(_id: ID!): User

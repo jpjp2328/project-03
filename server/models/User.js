@@ -19,7 +19,14 @@ const userSchema = new Schema(
             required: true,
         },
         profilePicture: {
-            type: String,
+            type: Array,
+            default: {
+                url:'https://via.placeholder.com/200x200.png?text=Profile',
+                public_id: Date.now
+            }
+        },
+        about: {
+          type: String  
         },
         friends: [{
             type: Schema.Types.ObjectId, ref: 'User'

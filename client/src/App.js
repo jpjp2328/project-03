@@ -8,6 +8,9 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar/Navbar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import MyProfile from './pages/MyProfile'
+import CreatePost from './pages/CreatePost'
+import FriendList from './pages/FriendList';
 
 
 const httpLink = createHttpLink({
@@ -49,6 +52,18 @@ function App() {
             <Route
               exact path='/signup'
               element={<Signup />}
+            />
+            <Route
+              exact path='/profile'
+              element={<MyProfile />}
+            />
+            <Route
+              exact path='/create/post'
+              element={<CreatePost />}
+            />
+            <Route
+              exact path='/user/friends'
+              element={<FriendList />}
             />
           </Routes>
         </>

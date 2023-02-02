@@ -18,7 +18,7 @@ const Navbar = () => {
                         {Auth.loggedIn() ? (
                             <>
                                 <li className="nav-item active">
-                                    <Link className="nav-link" to="/profile">Profile <span className="sr-only">(current)</span></Link>
+                                    <Link className="nav-link" to="/profile">{Auth.getProfile().data.username}'s Profile <span className="sr-only">(current)</span></Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link className="nav-link" onClick={Auth.logout}>Logout</Link>

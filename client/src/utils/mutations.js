@@ -26,6 +26,22 @@ export const ADD_USER = gql`
   }
 `;
 
+export const UPDATE_USER = gql`
+  mutation Mutation($input: UpdateUserInput) {
+    updateUser(input: $input) {
+      _id
+      name
+      username
+      about
+      profilePicture {
+        public_id
+        url
+      }
+      createdAt
+    }
+  }
+`
+
 // export const CREATE_POST = gql``;
 
 // export const UPDATE_POST = gql``;

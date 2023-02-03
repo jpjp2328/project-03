@@ -4,6 +4,7 @@ import { useQuery, useMutation } from '@apollo/client'
 
 import Auth from '../utils/auth';
 import { GET_PROFILE } from '../utils/queries'
+import { UPDATE_USER } from '../utils/mutations';
 
 
 const MyProfile = () => {
@@ -14,14 +15,15 @@ const MyProfile = () => {
         images: []
     })
 
-    const [loading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const { data } = useQuery(GET_PROFILE)
 
     useEffect(() => {
         if (data) {
-            console.log(data.profile)
+            console.log(data.profile);
             setProfileFormData({
+                ...profileFormData,
                 username: data.profile.username,
                 name: data.profile.name,
                 about: data.profile.about,
@@ -30,13 +32,24 @@ const MyProfile = () => {
         }
     }, [data])
 
+    const [updateUser] = useMutation(UPDATE_USER, {
+        update: ({ data }) => {
+            console.log('UPDATE USER MUTATION IN PROFILE', data);
+        }
+    });
+
 
     const handleFormSubmit = async (event) => {
+        event.preventDefault();
+        //console.log(profileFormData);
+        setLoading(true)
+        updateUser({ variables: { input: { ...profileFormData } } })
+        setLoading(false)
 
     };
 
     const handleInputChange = (event) => {
-
+        setProfileFormData({ ...profileFormData, [event.target.name] : event.target.value })
     };
 
     const handleImageChange = async (event) => {

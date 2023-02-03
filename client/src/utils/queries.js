@@ -31,15 +31,26 @@ export const GET_ALL_POSTS = gql`
   }
 `;
 
-//export const GET_PRODUCTS = gql`
-//`;
+//export const GET_PRODUCTS = gql``;
 
 //export const GET_ALL_PRODUCTS = gql`
 //`;
 
-// need 'me' query in schema
-//export const GET_PROFILE = gql`
-//`;
+export const GET_PROFILE = gql`
+  query Query {
+    profile {
+      _id
+      about
+      createdAt
+      name
+      username
+      profilePicture {
+        url
+        public_id
+      }
+    }
+  }
+`;
 
 // update 'user' query in schema
 //export const GET_USER = gql`

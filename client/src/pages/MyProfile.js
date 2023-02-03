@@ -117,7 +117,15 @@ const MyProfile = () => {
                             </div>
                             <div className='col-md-10'>
                                 <div className='container'>
-                                    My Profile:
+                                    <p>My Profile:</p>
+                                    <div className='row'>
+                                        <div className='col-md-3'>
+                                            <p> My images: </p>
+                                        </div>
+                                        <div className='col-md-9'>
+                                            {profilePicture.map((image) => (<img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='float-right' />))}
+                                        </div>
+                                    </div>
                                     <form onSubmit={handleFormSubmit} className='py-3'>
                                         <div className='form-group'>
                                             <label>Username</label>
@@ -151,7 +159,7 @@ const MyProfile = () => {
                                                 disabled={loading} />
                                         </div>
                                         <div className='form-group'>
-                                            <label>Image</label>
+                                            <label>Upload Image</label>
                                             <input
                                                 type='file'
                                                 accept='image/*'
@@ -164,8 +172,8 @@ const MyProfile = () => {
                                         <button className="btn btn-primary" type="submit" disabled={loading}>
                                             Submit
                                         </button>
-
                                     </form>
+
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client'
+import Resizer from 'react-image-file-resizer';
+import axios from 'axios';
 
 import Auth from '../utils/auth';
 import { GET_PROFILE } from '../utils/queries'
@@ -12,12 +14,12 @@ const MyProfile = () => {
         username: '',
         name: '',
         about: '',
-        images: []
-    })
+        profilePicture: []
+    });
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
-    const { data } = useQuery(GET_PROFILE)
+    const { data } = useQuery(GET_PROFILE);
 
     useEffect(() => {
         if (data) {
@@ -26,17 +28,18 @@ const MyProfile = () => {
                 username: data.profile.username,
                 name: data.profile.name,
                 about: data.profile.about,
-                images: data.profile.images
-            })
+                profilePicture: data.profile.profilePicture
+            });
         }
     }, [data])
 
     const [updateUser] = useMutation(UPDATE_USER, {
         update: ({ data }) => {
-            console.log('UPDATE USER MUTATION IN PROFILE', data);
+            console.log('UPDATE USER MUTATION', data);
         }
     });
 
+    const { username, name, about, profilePicture } = profileFormData;
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -48,11 +51,41 @@ const MyProfile = () => {
     };
 
     const handleInputChange = (event) => {
-        setProfileFormData({ ...profileFormData, [event.target.name] : event.target.value })
+        setProfileFormData({ ...profileFormData, [event.target.name]: event.target.value })
     };
 
+    // Resizer npm to resize and returns uri
     const handleImageChange = async (event) => {
-
+        let fileInput = false;
+        if (event.target.files[0]) {
+            fileInput = true;
+        }
+        if (fileInput) {
+            try {
+                Resizer.imageFileResizer(
+                    event.target.files[0],
+                    300,
+                    300,
+                    "JPEG, PNG",
+                    100,
+                    0,
+                    (uri) => {
+                        //console.log(uri);
+                        axios.post('http://localhost:3001/uploadimages', { image: uri })
+                            .then(response => {
+                                setLoading(false)
+                                console.log(response)
+                                setProfileFormData({ ...profileFormData, profilePicture: [...profilePicture, response.data] })
+                            })
+                    },
+                    "base64",
+                    200,
+                    200
+                )
+            } catch (err) {
+                console.log(err);
+            }
+        };
     };
 
     return (
@@ -91,7 +124,7 @@ const MyProfile = () => {
                                             <input
                                                 type='text'
                                                 name='username'
-                                                value={profileFormData.username}
+                                                value={username || ''}
                                                 onChange={handleInputChange}
                                                 className='form-control'
                                                 placeholder='Username'
@@ -101,7 +134,7 @@ const MyProfile = () => {
                                             <label>Name</label>
                                             <input type='text'
                                                 name='name'
-                                                value={profileFormData.name}
+                                                value={name || ''}
                                                 onChange={handleInputChange}
                                                 className='form-control'
                                                 placeholder='name'
@@ -111,24 +144,24 @@ const MyProfile = () => {
                                             <label>About</label>
                                             <textarea type='text'
                                                 name='about'
-                                                value={profileFormData.about}
+                                                value={about || ''}
                                                 onChange={handleInputChange}
                                                 className='form-control'
-                                                placeholder='Username'
+                                                placeholder='about'
                                                 disabled={loading} />
                                         </div>
                                         <div className='form-group'>
                                             <label>Image</label>
                                             <input
-                                                type='file' 
-                                                name='image' 
-                                                onChange={handleImageChange} 
-                                                className='form-control' 
-                                                placeholder='Username' 
+                                                type='file'
+                                                accept='image/*'
+                                                onChange={handleImageChange}
+                                                className='form-control'
+                                                placeholder='profile-picture'
                                                 disabled={loading} />
                                         </div>
 
-                                        <button className="btn btn-primary" type="submit" disabled={ loading }>
+                                        <button className="btn btn-primary" type="submit" disabled={loading}>
                                             Submit
                                         </button>
 

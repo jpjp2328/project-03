@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Product, Category, Post, Tag } = require('../models');
 const { signToken } = require('../utils/auth');
+const { DateTimeResolver } = require('graphql-scalars')
 
 const { posts } = require('../postData')
 
@@ -11,7 +12,7 @@ const resolvers = {
         me: () => 'Jeff',
         profile: async (parent, args, context) => {
             if (context.user) {
-                return User.findOne({ _id: context.user._id });
+                return await User.findOne({ _id: context.user._id });
             }
             throw new AuthenticationError("You need to be logged in!");
         },
@@ -118,7 +119,7 @@ const resolvers = {
                     { _id: context.user._id },
                     { ...args.input },
                     { new: true }
-                ).exec();
+                );
                 return updatedUser;
             }
             throw new AuthenticationError('You need to be logged in!');

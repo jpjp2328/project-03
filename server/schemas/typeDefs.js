@@ -1,6 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  scalar DateTime 
+
   type User {
     _id: ID!
     username: String
@@ -9,7 +11,7 @@ const typeDefs = gql`
     name: String
     profilePicture: [Image]
     about: String
-    createdAt: String
+    createdAt: DateTime
   }
 
   type Image {
@@ -31,7 +33,7 @@ const typeDefs = gql`
     image: String
     category: Category
     seller: User
-    createdAt: String
+    createdAt: DateTime
   }
 
   type Tag {
@@ -53,7 +55,7 @@ const typeDefs = gql`
     _id: ID!
     text: String!
     author: User!
-    createdAt: String
+    createdAt: DateTime
   }
 
   type Auth {
@@ -84,7 +86,7 @@ const typeDefs = gql`
     totalPosts: Int!
     allPosts: [Post]
     me: String!
-    profile(_id: ID!): User
+    profile: User
     user(_id: ID!): User
     post(_id: ID!): Post
     posts(tag: ID!, name: String): [Post]

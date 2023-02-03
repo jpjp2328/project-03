@@ -1,13 +1,18 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Product, Category, Post, Tag } = require('../models');
 const { signToken } = require('../utils/auth');
+const { DateTimeResolver } = require('graphql-scalars')
+
+const { posts } = require('../postData')
 
 const resolvers = {
     Query: {
-        me: async (parent, args, context) => {
+        totalPosts: () => posts.length,
+        allPosts: () => posts,
+        me: () => 'Jeff',
+        profile: async (parent, args, context) => {
             if (context.user) {
-                return User.findOne({ _id: context.user._id })
-                    .populate(['friends', 'posts', 'products']);
+                return await User.findOne({ _id: context.user._id });
             }
             throw new AuthenticationError("You need to be logged in!");
         },
@@ -74,6 +79,17 @@ const resolvers = {
     },
 
     Mutation: {
+        newPost: (parent, args) => {
+
+            console.log(args)
+            const post = {
+                id: posts.length + 1,
+                title: args.input.title,
+                description: args.input.description
+            }
+            posts.push(post)
+            return post;
+        },
         addUser: async (parent, { username, email, password }) => {
             const user = await User.create({ username, email, password });
             const token = signToken(user);
@@ -95,6 +111,18 @@ const resolvers = {
 
             const token = signToken(user);
             return { token, user };
+        },
+        updateUser: async (parent, args, context) => {
+            if (context.user) {
+                console.log(args)
+                const updatedUser = await User.findOneAndUpdate(
+                    { _id: context.user._id },
+                    { ...args.input },
+                    { new: true }
+                );
+                return updatedUser;
+            }
+            throw new AuthenticationError('You need to be logged in!');
         },
         createPost: async (parent, args, context) => {
             if (context.user) {

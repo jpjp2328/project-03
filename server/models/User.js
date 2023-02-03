@@ -18,19 +18,30 @@ const userSchema = new Schema(
             type: String,
             required: true,
         },
-        profilePicture: {
+        name: {
             type: String,
         },
-        friends: [{
-            type: Schema.Types.ObjectId, ref: 'User'
-        }],
-        posts: [{
-            type: Schema.Types.ObjectId, ref: 'Post'
-        }],
-        products: [{
-            type: Schema.Types.ObjectId, ref: 'Product'
-        }]
+        profilePicture: {
+            type: Array,
+            default: {
+                url:'https://via.placeholder.com/200x200.png?text=Profile',
+                public_id: Date.now
+            }
+        },
+        about: {
+          type: String  
+        }
+        // friends: [{
+        //     type: Schema.Types.ObjectId, ref: 'User'
+        // }],
+        // posts: [{
+        //     type: Schema.Types.ObjectId, ref: 'Post'
+        // }],
+        // products: [{
+        //     type: Schema.Types.ObjectId, ref: 'Product'
+        // }]
     },
+    { timestamps: true },
     {
         toJSON: {
             virtuals: true,

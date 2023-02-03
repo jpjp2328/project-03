@@ -1,28 +1,28 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+  scalar DateTime 
+
   type User {
     _id: ID!
-    username: String!
-    email: String!
-    password: String!
-    profilePic: String
-    friends: [User]
-    posts: [Post]
-    products: [Product]
+    username: String
+    email: String
+    password: String
+    name: String
+    profilePicture: [Image]
+    about: String
+    createdAt: DateTime
+  }
+
+  type Image {
+    url: String
+    public_id: String
   }
 
   type Post {
-    _id: ID!
-    text: String!
-    image: String
-    author: User!
-    tags: [Tag]
-    likes: [Like]
-    likeCount: Int
-    comments: [Comment]
-    commentCount: Int
-    createdAt: String
+    id: ID!
+    title: String!
+    description: String!
   }
 
   type Product {
@@ -33,7 +33,7 @@ const typeDefs = gql`
     image: String
     category: Category
     seller: User
-    createdAt: String
+    createdAt: DateTime
   }
 
   type Tag {
@@ -55,7 +55,7 @@ const typeDefs = gql`
     _id: ID!
     text: String!
     author: User!
-    createdAt: String
+    createdAt: DateTime
   }
 
   type Auth {
@@ -63,8 +63,30 @@ const typeDefs = gql`
     user: User
   }
 
+  #input types
+  input PostInput {
+    title: String!
+    description: String!
+  }
+
+  input ImageInput {
+    url: String
+    public_id: String
+  }
+
+  input UpdateUserInput {
+    username: String
+    name: String
+    profilePicture: [ImageInput]
+    about: String
+  }
+
+  # Query types
   type Query {
-    me(_id: ID!): User
+    totalPosts: Int!
+    allPosts: [Post]
+    me: String!
+    profile: User
     user(_id: ID!): User
     post(_id: ID!): Post
     posts(tag: ID!, name: String): [Post]
@@ -76,9 +98,12 @@ const typeDefs = gql`
     comments(postId: ID!): [Comment]
   }
 
+  # Mutation types
   type Mutation {
+    newPost(input: PostInput!): Post!
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
+    updateUser(input: UpdateUserInput): User!
     createPost(text: String!, image: String, tags: [String]): Post
     updatePost(_id: ID!, text: String, image: String, tags: [String]): Post
     deletePost(_id: ID!): User

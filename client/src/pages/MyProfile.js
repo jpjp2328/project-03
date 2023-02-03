@@ -23,7 +23,6 @@ const MyProfile = () => {
         if (data) {
             console.log(data.profile);
             setProfileFormData({
-                ...profileFormData,
                 username: data.profile.username,
                 name: data.profile.name,
                 about: data.profile.about,

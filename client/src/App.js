@@ -5,7 +5,7 @@ import { setContext } from '@apollo/client/link/context';
 
 // importing components and pages
 import Home from './pages/Home';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import MyProfile from './pages/MyProfile'

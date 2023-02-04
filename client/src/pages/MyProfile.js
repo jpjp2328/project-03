@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client'
 import Resizer from 'react-image-file-resizer';
 import axios from 'axios';

@@ -85,9 +85,9 @@ const typeDefs = gql`
   type Query {
     totalPosts: Int!
     allPosts: [Post]
-    me: String!
-    profile: User
-    user(_id: ID!): User
+    profile: User!
+    userProfile(username: String!): User!
+    allUsers: [User!]
     post(_id: ID!): Post
     posts(tag: ID!, name: String): [Post]
     product(_id: ID!): Product

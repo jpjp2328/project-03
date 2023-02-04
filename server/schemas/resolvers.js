@@ -9,22 +9,21 @@ const resolvers = {
     Query: {
         totalPosts: () => posts.length,
         allPosts: () => posts,
-        me: () => 'Jeff',
         profile: async (parent, args, context) => {
             if (context.user) {
                 return await User.findOne({ _id: context.user._id });
             }
             throw new AuthenticationError("You need to be logged in!");
         },
-        user: async (parent, args, context) => {
-            if (context.user) {
-                const user = await User.findById(args._id);
-                if (!user) {
-                    throw new Error('User not found!');
-                }
-                return user;
+        userProfile: async (parent, args, context) => {
+            const user = await User.findOne({ username: args.username });
+            if (!user) {
+                throw new Error('User not found!');
             }
-            throw new AuthenticationError("You need to be logged in!");
+            return user;
+        },
+        allUsers: async (parent, args) => {
+            return await User.find({})
         },
         post: async (parents, args) => {
             return Post.findOne({ _id: args._id })

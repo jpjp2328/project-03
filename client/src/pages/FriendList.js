@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/client'
 import { GET_ALL_USERS } from '../utils/queries';
 import Auth from '../utils/auth';
 import UserCard from '../components/UserCard';
+import Sidebar from '../components/Sidebar';
 
 const FriendList = () => {
     const { data, loading } = useQuery(GET_ALL_USERS);
@@ -18,25 +19,7 @@ const FriendList = () => {
                     <div className='container-fluid pt-5'>
                         <div className='row'>
                             <div className='col-md-2'>
-                                <nav>
-                                    <ul className='nav flex-column'>
-                                        <li className='nav-item'>
-                                            <Link className='nav-link' to='/profile'>
-                                                Profile
-                                            </Link>
-                                        </li>
-                                        <li className='nav-item'>
-                                            <Link className='nav-link' to='/post/create'>
-                                                Post
-                                            </Link>
-                                        </li>
-                                        <li className='nav-item'>
-                                            <Link className='nav-link' to='/user/friends'>
-                                                Friends
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                {<Sidebar />}
                             </div>
                             <div className='col-md-10'>
                                 <div className='container'>

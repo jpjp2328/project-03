@@ -7,6 +7,7 @@ import axios from 'axios';
 import Auth from '../utils/auth';
 import { GET_PROFILE } from '../utils/queries'
 import { UPDATE_USER } from '../utils/mutations';
+import Sidebar from '../components/Sidebar';
 
 
 const MyProfile = () => {
@@ -110,25 +111,7 @@ const MyProfile = () => {
                     <div className='container-fluid pt-5'>
                         <div className='row'>
                             <div className='col-md-2'>
-                                <nav>
-                                    <ul className='nav flex-column'>
-                                        <li className='nav-item'>
-                                            <Link className='nav-link' to='/profile'>
-                                                Profile
-                                            </Link>
-                                        </li>
-                                        <li className='nav-item'>
-                                            <Link className='nav-link' to='/post/create'>
-                                                Post
-                                            </Link>
-                                        </li>
-                                        <li className='nav-item'>
-                                            <Link className='nav-link' to='/user/friends'>
-                                                Friends
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                {<Sidebar />}
                             </div>
                             <div className='col-md-10'>
                                 <div className='container'>

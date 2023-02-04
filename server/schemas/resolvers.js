@@ -7,8 +7,6 @@ const { posts } = require('../postData')
 
 const resolvers = {
     Query: {
-        totalPosts: () => posts.length,
-        allPosts: () => posts,
         profile: async (parent, args, context) => {
             if (context.user) {
                 return await User.findOne({ _id: context.user._id });
@@ -78,17 +76,6 @@ const resolvers = {
     },
 
     Mutation: {
-        newPost: (parent, args) => {
-
-            console.log(args)
-            const post = {
-                id: posts.length + 1,
-                title: args.input.title,
-                description: args.input.description
-            }
-            posts.push(post)
-            return post;
-        },
         addUser: async (parent, { username, email, password }) => {
             const user = await User.create({ username, email, password });
             const token = signToken(user);
@@ -125,13 +112,9 @@ const resolvers = {
         },
         createPost: async (parent, args, context) => {
             if (context.user) {
-                const post = await Post.create({ ...args, author: context.user._id });
-                await User.findByIdAndUpdate(
-                    context.user._id,
-                    { $push: { posts: post._id } },
-                    { new: true }
-                );
-                return post;
+              const newPost = await Post.create({ ...args.input, author: context.user._id });
+              const populatedPost = await newPost.populate('author').execPopulate();
+              return populatedPost;
             }
             throw new AuthenticationError('You need to be logged in!');
         },

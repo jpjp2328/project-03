@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import Resizer from 'react-image-file-resizer';
 import axios from 'axios';
@@ -20,15 +20,11 @@ const CreatePost = () => {
     });
     const [loading, setLoading] = useState(false);
 
-    const { data } = useQuery(GET_POST_BY_USER);
+    const { data: posts } = useQuery(GET_POST_BY_USER);
 
     const { text, image } = values;
 
-    const [createPost] = useMutation(CREATE_POST, {
-        //update cache
-        update: (data) => console.log(data),
-        onError: (err) => console.log(err)
-    });
+    const [createPost] = useMutation(CREATE_POST);
 
     const handleFormSubmit = async (event) => {
         event.preventDefault()
@@ -145,8 +141,8 @@ const CreatePost = () => {
                                     </div>
                                     <hr />
                                     <div className='row p-5'>
-                                        {data &&
-                                            data.postByUser.map(post => (
+                                        {posts &&
+                                            posts.postByUser.map(post => (
                                                 <div className='col-md-4 p-2' key={post._id}>
                                                     <PostCard post={post} />
                                                 </div>

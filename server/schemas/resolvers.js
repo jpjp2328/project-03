@@ -28,10 +28,13 @@ const resolvers = {
         },
         postByUser: async (parent, args, context) => {
             if (context.user) {
-                return await Post.find({ author: context.user._id }).populate('author').sort({ createdAt: -1 })
+                return await Post.find({ author: context.user._id }).populate('author').sort({ createdAt: -1 });
             }
-            throw new AuthenticationError("You need to be logged in!")
-        }, 
+            throw new AuthenticationError("You need to be logged in!");
+        },
+        singlePost: async (parent, args) => {
+            return await Post.findById({ _id: args.postId }).populate('author');
+        },
         product: async (parent, args) => {
             return Product.findOne({ _id: args._id })
                 .populate(['seller', 'category']);
@@ -107,6 +110,19 @@ const resolvers = {
             }
             throw new AuthenticationError('You need to be logged in!');
         },
+        deletePost: async (parent, args, context) => {
+            if (context.user) {
+                const currentUser = await User.findOne({ _id: context.user._id });
+                const postToDelete = await Post.findById({ _id: args.postId });
+
+                if (currentUser._id.toString() !== postToDelete.author._id.toString())
+                    throw new Error('Unauthorised');
+
+                let deletedPost = await Post.findByIdAndDelete({ _id: args.postId });
+                return deletedPost;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
         updatePost: async (parent, args, context) => {
             if (context.user) {
                 const post = await Post.findByIdAndUpdate(
@@ -115,17 +131,6 @@ const resolvers = {
                     { new: true }
                 );
                 return post;
-            }
-            throw new AuthenticationError('You need to be logged in!');
-        },
-        deletePost: async (parent, args, context) => {
-            if (context.user) {
-                await Post.findByIdAndDelete(args._id);
-                return User.findByIdAndUpdate(
-                    context.user._id,
-                    { $pull: { posts: args._id } },
-                    { new: true }
-                );
             }
             throw new AuthenticationError('You need to be logged in!');
         },

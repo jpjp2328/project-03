@@ -95,6 +95,7 @@ const typeDefs = gql`
     allUsers: [User!]
     allPosts: [Post]
     postByUser: [Post!]!
+    singlePost(postId: String!): Post!
     product(_id: ID!): Product
     products(category: ID!, name: String): [Product]
     tags: [Tag]
@@ -109,8 +110,8 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     updateUser(input: UpdateUserInput): User!
     createPost(input: createPostInput!): Post!
+    deletePost(postId: String!): Post
     updatePost(_id: ID!, text: String, image: String, tags: [String]): Post
-    deletePost(_id: ID!): User
     createProduct(name: String!, description: String, price: Float, image: String, category: String): Product
     updateProduct(_id: ID!, name: String, description: String, price: Float, image: String, category: String): Product
     deleteProduct(_id: ID!): User

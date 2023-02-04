@@ -23,26 +23,15 @@ const resolvers = {
         allUsers: async (parent, args) => {
             return await User.find({})
         },
-        post: async (parents, args) => {
-            return Post.findOne({ _id: args._id })
-                .populate(['author', 'tags', 'likes', 'comments']);
+        allPosts: async (parent, args) => {
+            return await Post.find({}).populate('author')
         },
-        posts: async (parents, { tag, name }) => {
-            const params = {};
-
-            if (tag) {
-                params.tag = tag;
+        postByUser: async (parent, args, context) => {
+            if (context.user) {
+                return await Post.find({ author: context.user._id }).populate('author').sort({ createdAt: -1 })
             }
-
-            if (name) {
-                params.name = {
-                    $regex: name,
-                };
-            }
-
-            return Post.find(params)
-                .populate(['author', 'tags', 'likes', 'comments']);
-        },
+            throw new AuthenticationError("You need to be logged in!")
+        }, 
         product: async (parent, args) => {
             return Product.findOne({ _id: args._id })
                 .populate(['seller', 'category']);
@@ -112,9 +101,9 @@ const resolvers = {
         },
         createPost: async (parent, args, context) => {
             if (context.user) {
-              const newPost = await Post.create({ ...args.input, author: context.user._id });
-              const populatedPost = await newPost.populate('author').execPopulate();
-              return populatedPost;
+                const newPost = await Post.create({ ...args.input, author: context.user._id });
+                const populatedPost = await newPost.populate('author').execPopulate();
+                return populatedPost;
             }
             throw new AuthenticationError('You need to be logged in!');
         },

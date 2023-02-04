@@ -1,15 +1,22 @@
 import React from 'react';
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client';
+import { useParams } from 'react-router-dom';
 
-import { GET_ALL_USERS } from '../utils/queries';
 import Auth from '../utils/auth';
-import UserCard from '../components/UserCard';
+import { GET_SINGLE_USER } from '../utils/queries';
 import Sidebar from '../components/Sidebar';
+import UserCard from '../components/UserCard';
 
-const FriendList = () => {
-    const { data, loading } = useQuery(GET_ALL_USERS);
+const UserProfile = () => {
+    let params = useParams();
 
-    if (loading) return <p>Loading...</p>
+    const { loading, data } = useQuery(GET_SINGLE_USER, {
+        variables: { username: params.username }
+    });
+
+    
+
+    if (loading) return <p> Loading... </p>;
 
     return (
         <div>
@@ -22,13 +29,8 @@ const FriendList = () => {
                             </div>
                             <div className='col-md-10'>
                                 <div className='container'>
-                                    <div className='row p-5'>
-                                        {data.allUsers.map(user => (
-                                            <div className='col-md-4' key={user._id}>
-                                                <UserCard user={user}/>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    <br/>
+                                    <UserCard user={data.singleUser} />
                                 </div>
                             </div>
                         </div>
@@ -36,10 +38,12 @@ const FriendList = () => {
                 </>
             ) : (
                 <>
+                Login or SignUp to view user!
                 </>
             )}
         </div>
-    );
-};
+    )
+}
 
-export default FriendList
+export default UserProfile
+

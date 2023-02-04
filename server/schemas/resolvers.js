@@ -15,7 +15,7 @@ const resolvers = {
             }
             throw new AuthenticationError("You need to be logged in!");
         },
-        userProfile: async (parent, args, context) => {
+        singleUser: async (parent, args, context) => {
             const user = await User.findOne({ username: args.username });
             if (!user) {
                 throw new Error('User not found!');

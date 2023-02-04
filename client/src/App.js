@@ -11,6 +11,7 @@ import Signup from './pages/Signup';
 import MyProfile from './pages/MyProfile'
 import CreatePost from './pages/CreatePost'
 import FriendList from './pages/FriendList';
+import UserProfile from './pages/UserProfile';
 
 
 const httpLink = createHttpLink({
@@ -58,6 +59,10 @@ function App() {
             <Route
               exact path='/profile'
               element={<MyProfile />}
+            />
+            <Route
+              exact path='/user/:username'
+              element={<UserProfile />}
             />
             <Route
               exact path='/post/create'

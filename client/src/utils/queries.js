@@ -31,11 +31,6 @@ export const GET_ALL_POSTS = gql`
   }
 `;
 
-//export const GET_PRODUCTS = gql``;
-
-//export const GET_ALL_PRODUCTS = gql`
-//`;
-
 export const GET_PROFILE = gql`
   query Query {
     profile {
@@ -52,10 +47,40 @@ export const GET_PROFILE = gql`
   }
 `;
 
-// update 'user' query in schema
-//export const GET_USER = gql`
-//`;
+export const GET_SINGLE_USER = gql`
+  query SingleUser($username: String!) {
+    singleUser(username: $username) {
+      _id
+      username
+      name
+      about
+      email
+      profilePicture {
+        public_id
+        url
+      }
+    }
+  }
+`
 
+export const GET_ALL_USERS = gql`
+  query Query {
+    allUsers {
+      _id
+      about
+      name
+      email
+      username
+      profilePicture {
+        url
+      }
+    }
+  }
+`;
+
+//export const GET_PRODUCTS = gql``;
+
+//export const GET_ALL_PRODUCTS = gql``;
 
 //GET_FRIENDS? or can get them via User
 

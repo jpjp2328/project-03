@@ -24,7 +24,7 @@ const resolvers = {
             return await User.find({})
         },
         allPosts: async (parent, args) => {
-            return await Post.find({}).populate('author')
+            return await Post.find({}).populate('author').sort({ createdAt: -1 })
         },
         postByUser: async (parent, args, context) => {
             if (context.user) {

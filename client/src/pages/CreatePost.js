@@ -152,8 +152,6 @@ const CreatePost = () => {
                                                 </div>
                                             ))}
                                     </div>
-                                    <hr />
-                                    {JSON.stringify(data)}
                                 </div>
                             </div>
                         </div>

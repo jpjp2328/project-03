@@ -23,11 +23,18 @@ export const GET_CATEGORIES = gql`
 
 export const GET_ALL_POSTS = gql`
   query Query {
-      allPosts {
-        id
-        title
-        description
+    allPosts {
+      _id
+      text
+      image {
+        url
+        public_id
       }
+      author {
+        _id
+        username
+      }
+    }
   }
 `;
 

@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import Auth from '../utils/auth';
 import Sidebar from '../components/Sidebar'
+import { CREATE_POST } from '../utils/mutations';
 
 
 const CreatePost = () => {
@@ -20,8 +21,24 @@ const CreatePost = () => {
 
     const { text, image } = values;
 
-    const handleFormSubmit = () => {
-        //
+    const [createPost] = useMutation(CREATE_POST, {
+        //update cache
+        update: (data) => console.log(data),
+        onError: (err) => console.log(err)
+    });
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault()
+        setLoading(true);
+        createPost({ variables: { input: values } });
+        setValues({
+            text: '',
+            image: {
+                url: 'https://via.placeholder.com/200x200.png?text=Post',
+                public_id: '123'
+            }
+        });
+        setLoading(false);
     }
 
     const handleFormChange = (event) => {
@@ -68,7 +85,7 @@ const CreatePost = () => {
         axios.post('http://localhost:3001/uploadimages', { public_id: id })
             .then(response => {
                 setLoading(false);
-                setValues({ ...values, image: { url: '', public_id: '' }})
+                setValues({ ...values, image: { url: '', public_id: '' } })
             }).catch(error => {
                 setLoading(false)
                 console.log(error)
@@ -86,12 +103,25 @@ const CreatePost = () => {
                             </div>
                             <div className='col-md-10'>
                                 <div className='container p-5'>
-                                    {loading ? <p>Loading...</p> : <h4>Create</h4>}
+                                    {loading ? <p>Loading...</p> : <h4>Create Post</h4>}
                                     <div className='row'>
-                                        <div className='col-md-3'>
-                                            {image && <img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='float-right' onClick={() => handleRemoveImage(image.public_id)} />}
+                                        <div className='col-md-4'>
+                                            {image && <img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='float-right my-2' onClick={() => handleRemoveImage(image.public_id)} />}
+                                            <div className='py-3'>
+                                                <div className='form-group'>
+                                                    <label>Selected Image:</label>
+                                                    <input
+                                                        type='file'
+                                                        accept='image/*'
+                                                        onChange={handleImageChange}
+                                                        className='form-control'
+                                                        placeholder='profile-picture'
+                                                        disabled={loading} />
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className='col-md-9'>
+                                        <div className='col-md-8'>
+
                                             <form onSubmit={handleFormSubmit}>
                                                 <div className='form-group'>
                                                     <textarea

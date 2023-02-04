@@ -4,10 +4,11 @@ import { useQuery } from '@apollo/client'
 
 // importing queries
 import { GET_ALL_POSTS } from '../utils/queries';
+import PostCard from '../components/PostCard';
 
 function Home() {
     const { data, loading } = useQuery(GET_ALL_POSTS)
-
+    console.log(data)
     if (loading) return <p>Loading...</p>
 
     return (
@@ -15,14 +16,7 @@ function Home() {
             <div className='row p-5'>
                 {data.allPosts.map(post => (
                     <div className='col-md-4' key={post._id}>
-                        <div className='card'>
-                            <div className='card-body'>
-                                <div className='card-title'>
-                                    <h4>{post.text}</h4>
-                                </div>
-                                <p className='card-text'>{post.author.username}</p>
-                            </div>
-                        </div>
+                        <PostCard post={post}/>
                     </div>
                 ))}
             </div>

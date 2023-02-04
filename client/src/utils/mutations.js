@@ -42,7 +42,22 @@ export const UPDATE_USER = gql`
   }
 `
 
-// export const CREATE_POST = gql``;
+export const CREATE_POST = gql`
+  mutation Mutation($input: createPostInput!) {
+    createPost(input: $input) {
+      _id
+      text
+      image {
+        url
+        public_id
+      }
+      author {
+        _id
+        username
+      }
+    }
+  }
+`;
 
 // export const UPDATE_POST = gql``;
 

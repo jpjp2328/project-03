@@ -24,6 +24,7 @@ const typeDefs = gql`
     text: String!
     image: Image
     author: User
+    createdAt: DateTime
   }
 
   type Product {

@@ -14,11 +14,12 @@ function Home() {
     return (
         <div className='container'>
             <div className='row p-5'>
-                {data.allPosts.map(post => (
-                    <div className='col-md-4 p-2' key={post._id}>
-                        <PostCard post={post}/>
-                    </div>
-                ))}
+                {data &&
+                    data.allPosts.map(post => (
+                        <div className='col-md-4 p-2' key={post._id}>
+                            <PostCard post={post} />
+                        </div>
+                    ))}
             </div>
         </div>
     );

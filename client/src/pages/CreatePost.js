@@ -6,10 +6,11 @@ import axios from 'axios';
 import Auth from '../utils/auth';
 import Sidebar from '../components/Sidebar'
 import { CREATE_POST } from '../utils/mutations';
+import { GET_POST_BY_USER } from '../utils/queries';
+import PostCard from '../components/PostCard';
 
 
 const CreatePost = () => {
-
     const [values, setValues] = useState({
         text: '',
         image: {
@@ -18,6 +19,8 @@ const CreatePost = () => {
         }
     });
     const [loading, setLoading] = useState(false);
+
+    const { data } = useQuery(GET_POST_BY_USER);
 
     const { text, image } = values;
 
@@ -141,6 +144,16 @@ const CreatePost = () => {
                                         </div>
                                     </div>
                                     <hr />
+                                    <div className='row p-5'>
+                                        {data &&
+                                            data.postByUser.map(post => (
+                                                <div className='col-md-4 p-2' key={post._id}>
+                                                    <PostCard post={post} />
+                                                </div>
+                                            ))}
+                                    </div>
+                                    <hr />
+                                    {JSON.stringify(data)}
                                 </div>
                             </div>
                         </div>

@@ -18,9 +18,6 @@ export const GET_CATEGORIES = gql`
   }
 `;
 
-//export const GET_POST = gql`
-//`;
-
 export const GET_ALL_POSTS = gql`
   query Query {
     allPosts {
@@ -34,6 +31,25 @@ export const GET_ALL_POSTS = gql`
         _id
         username
       }
+      createdAt
+    }
+  }
+`;
+
+export const GET_POST_BY_USER = gql`
+  query Query {
+    postByUser {
+      _id
+      text
+      image {
+        url
+        public_id
+      }
+      author {
+        _id
+        username
+      }
+      createdAt
     }
   }
 `;

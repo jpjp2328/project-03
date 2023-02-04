@@ -11,7 +11,7 @@ const postSchema = new Schema(
         image: {
             url: { 
                 type: String,
-                default: 'https://via.placeholder.com/200x200.png?text=Profile'
+                default: 'https://via.placeholder.com/200x200.png?text=Post'
             },
             public_id: {
                 type: String,

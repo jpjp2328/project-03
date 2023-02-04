@@ -47,8 +47,24 @@ export const GET_PROFILE = gql`
   }
 `;
 
+export const GET_SINGLE_USER = gql`
+  query SingleUser($username: String!) {
+    singleUser(username: $username) {
+      _id
+      username
+      name
+      about
+      email
+      profilePicture {
+        public_id
+        url
+      }
+    }
+  }
+`
+
 export const GET_ALL_USERS = gql`
-  query UserProfile {
+  query Query {
     allUsers {
       _id
       about
@@ -61,8 +77,6 @@ export const GET_ALL_USERS = gql`
     }
   }
 `;
-
-//export const GET_USER = gql``;
 
 //export const GET_PRODUCTS = gql``;
 

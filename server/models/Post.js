@@ -9,27 +9,34 @@ const postSchema = new Schema(
             type: String, required: true,
         },
         image: {
-            type: String
+            url: { 
+                type: String,
+                default: 'https://via.placeholder.com/200x200.png?text=Profile'
+            },
+            public_id: {
+                type: String,
+                default: Date.now
+            }
         },
         author: {
             type: Schema.Types.ObjectId, ref: 'User', required: true,
-        },
-        tags: [{
-            type: Schema.Types.ObjectId, ref: 'Tag'
-        }],
-        likes: [likeSchema],
-        likeCount: {
-            type: Number, 
-            default: 0
-        },
-        comments: [commentSchema],
-        commentCount: {
-            type: Number,
-            default: 0
-        },
-        createdAt: {
-            type: Date, default: Date.now
         }
+        // tags: [{
+        //     type: Schema.Types.ObjectId, ref: 'Tag'
+        // }],
+        // likes: [likeSchema],
+        // likeCount: {
+        //     type: Number, 
+        //     default: 0
+        // },
+        // comments: [commentSchema],
+        // commentCount: {
+        //     type: Number,
+        //     default: 0
+        // }
+    },
+    {
+        timestamps: true
     }
 );
 

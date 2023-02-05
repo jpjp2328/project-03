@@ -14,7 +14,10 @@ const MyProfile = () => {
         username: '',
         name: '',
         about: '',
-        profilePicture: []
+        profilePicture: {
+            url: 'https://www.shareicon.net/data/256x256/2016/01/03/697483_user_512x512.png',
+            public_id: '123'
+        }
     });
 
     const [loading, setLoading] = useState(false);
@@ -75,7 +78,7 @@ const MyProfile = () => {
                             .then(response => {
                                 setLoading(false)
                                 console.log(response)
-                                setProfileFormData({ ...profileFormData, profilePicture: [...profilePicture, response.data] })
+                                setProfileFormData({ ...profileFormData, profilePicture: response.data })
                             })
                     },
                     "base64",
@@ -93,10 +96,7 @@ const MyProfile = () => {
         axios.post('http://localhost:3001/uploadimages', { public_id: id })
             .then(response => {
                 setLoading(false)
-                let updatedImages = profilePicture.filter(item => {
-                    return item.public_id !== id
-                })
-                setProfileFormData({ ...profileFormData, profilePicture: updatedImages })
+                setProfileFormData({ ...profileFormData, profilePicture: { url: '', public_id: '' } })
             }).catch(error => {
                 setLoading(false)
                 console.log(error)
@@ -120,7 +120,7 @@ const MyProfile = () => {
                                             <p> My images: </p>
                                         </div>
                                         <div className='col-md-9'>
-                                            {profilePicture.map((image) => (<img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='float-right' onClick={() => handleRemoveImage(image.public_id)} />))}
+                                            {profilePicture && <img src={profilePicture.url} key={profilePicture.public_id} alt={profilePicture.public_id} style={{ height: '100px' }} className='float-right my-2' onClick={() => handleRemoveImage(profilePicture.public_id)} />}
                                         </div>
                                     </div>
                                     <form onSubmit={handleFormSubmit} className='py-3'>

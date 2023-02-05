@@ -29,13 +29,16 @@ const resolvers = {
         allPosts: async (parent, args) => {
             const currentPage = args.page || 1
             const perPage = 6
-            return await Post.find({}).skip((currentPage -1) * perPage).populate('author').limit(perPage).sort({ createdAt: -1 })
+            return await Post.find({}).skip((currentPage - 1) * perPage).populate('author').limit(perPage).sort({ createdAt: -1 })
         },
         postByUser: async (parent, args, context) => {
             if (context.user) {
                 return await Post.find({ author: context.user._id }).populate('author').sort({ createdAt: -1 });
             }
             throw new AuthenticationError("You need to be logged in!");
+        },
+        postsForProfile: async (parent, args) => {
+            return await Post.find({ author: args }).populate('author');
         },
         singlePost: async (parent, args) => {
             return await Post.findById({ _id: args.postId }).populate('author');

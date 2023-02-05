@@ -9,7 +9,7 @@ const typeDefs = gql`
     email: String
     password: String
     name: String
-    profilePicture: [Image]
+    profilePicture: Image
     about: String
     createdAt: DateTime
   }
@@ -79,7 +79,7 @@ const typeDefs = gql`
   input UpdateUserInput {
     username: String
     name: String
-    profilePicture: [ImageInput]
+    profilePicture: ImageInput
     about: String
   }
 
@@ -96,6 +96,7 @@ const typeDefs = gql`
     totalPosts: Int!
     allPosts(page: Int): [Post]
     postByUser: [Post!]!
+    postsForProfile(_id: String!): [Post!]!
     singlePost(postId: String!): Post!
     product(_id: ID!): Product
     products(category: ID!, name: String): [Product]

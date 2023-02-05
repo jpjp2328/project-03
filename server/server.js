@@ -18,11 +18,10 @@ const server = new ApolloServer({
   context: authMiddleware,
 });
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
-app.use(cors());
-app.use(bodyParser.json());
 
+app.use(cors());
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
@@ -53,17 +52,6 @@ app.post('/uploadimages', (req, res) => {
       public_id: `${Date.now()}`, //public name
       resource_type: 'auto'
     });
-});
-
-// remove image
-app.post('/removeimage', (req, res) => {
-  let image_id = req.body.public_id
-
-  cloudinary.uploader.destroy(image_id, (error, result) => {
-    if (error) return res.json({ success: false, error });
-    res.send('success')
-
-  });
 });
 
 // Create a new instance of an Apollo server with the GraphQL schema

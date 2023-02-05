@@ -125,6 +125,24 @@ export const GET_ALL_USERS = gql`
   }
 `;
 
+export const GET_POSTS_FOR_PROFILE = gql`
+  query PostsForProfile($id: String!) {
+    postsForProfile(_id: $id) {
+      _id
+      text
+      image {
+        url
+        public_id
+      }
+      author {
+        _id
+        username
+      }
+      createdAt
+    }
+  }
+`
+
 //export const GET_PRODUCTS = gql``;
 
 //export const GET_ALL_PRODUCTS = gql``;

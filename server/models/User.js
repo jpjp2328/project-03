@@ -22,10 +22,13 @@ const userSchema = new Schema(
             type: String,
         },
         profilePicture: {
-            type: Array,
-            default: {
-                url:'https://www.shareicon.net/data/256x256/2016/01/03/697483_user_512x512.png',
-                public_id: Date.now
+            url: { 
+                type: String,
+                default: 'https://www.shareicon.net/data/256x256/2016/01/03/697483_user_512x512.png'
+            },
+            public_id: {
+                type: String,
+                default: Date.now
             }
         },
         about: {

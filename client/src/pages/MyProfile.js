@@ -14,7 +14,10 @@ const MyProfile = () => {
         username: '',
         name: '',
         about: '',
-        profilePicture: []
+        profilePicture: {
+            url: 'https://www.shareicon.net/data/256x256/2016/01/03/697483_user_512x512.png',
+            public_id: '123'
+        }
     });
 
     const [loading, setLoading] = useState(false);
@@ -75,7 +78,7 @@ const MyProfile = () => {
                             .then(response => {
                                 setLoading(false)
                                 console.log(response)
-                                setProfileFormData({ ...profileFormData, profilePicture: [...profilePicture, response.data] })
+                                setProfileFormData({ ...profileFormData, profilePicture: response.data })
                             })
                     },
                     "base64",
@@ -88,21 +91,6 @@ const MyProfile = () => {
         };
     };
 
-    const handleRemoveImage = (id) => {
-        setLoading(true)
-        axios.post('http://localhost:3001/uploadimages', { public_id: id })
-            .then(response => {
-                setLoading(false)
-                let updatedImages = profilePicture.filter(item => {
-                    return item.public_id !== id
-                })
-                setProfileFormData({ ...profileFormData, profilePicture: updatedImages })
-            }).catch(error => {
-                setLoading(false)
-                console.log(error)
-            })
-    }
-
     return (
         <div>
             {Auth.loggedIn() ? (
@@ -113,14 +101,13 @@ const MyProfile = () => {
                                 {<Sidebar />}
                             </div>
                             <div className='col-md-10'>
-                                <div className='container'>
-                                    <p>My Profile:</p>
+                                <div className='container card p-5 edit-profile'>
                                     <div className='row'>
                                         <div className='col-md-3'>
-                                            <p> My images: </p>
+                                        <p>Edit My Profile:</p>
                                         </div>
                                         <div className='col-md-9'>
-                                            {profilePicture.map((image) => (<img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='float-right' onClick={() => handleRemoveImage(image.public_id)} />))}
+                                            {profilePicture && <img src={profilePicture.url} key={profilePicture.public_id} alt={profilePicture.public_id} style={{ height: '100px' }} className='float-right my-2' />}
                                         </div>
                                     </div>
                                     <form onSubmit={handleFormSubmit} className='py-3'>
@@ -142,7 +129,7 @@ const MyProfile = () => {
                                                 value={name || ''}
                                                 onChange={handleInputChange}
                                                 className='form-control'
-                                                placeholder='name'
+                                                placeholder='Name'
                                                 disabled={loading} />
                                         </div>
                                         <div className='form-group'>
@@ -152,7 +139,7 @@ const MyProfile = () => {
                                                 value={about || ''}
                                                 onChange={handleInputChange}
                                                 className='form-control'
-                                                placeholder='about'
+                                                placeholder='Write something about me!'
                                                 disabled={loading} />
                                         </div>
                                         <div className='form-group'>

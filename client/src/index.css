@@ -5,6 +5,11 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: lightslategray;
+  background: url("../src/images/sky-background.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
 
 code {
@@ -14,4 +19,4 @@ code {
 
 .current-page {
   background-color: lightgray;
-} 
+}

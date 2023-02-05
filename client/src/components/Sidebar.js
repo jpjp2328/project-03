@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
     return (
-        <nav>
+        <nav className='side-nav'>
             <ul className='nav flex-column'>
                 <li className='nav-item'>
                     <Link className='nav-link' to='/profile'>
-                        Profile
+                        Edit My Profile
                     </Link>
                 </li>
                 <li className='nav-item'>
                     <Link className='nav-link' to='/post/create'>
-                        Post
+                        My Posts
                     </Link>
                 </li>
                 <li className='nav-item'>

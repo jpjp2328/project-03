@@ -101,11 +101,10 @@ const MyProfile = () => {
                                 {<Sidebar />}
                             </div>
                             <div className='col-md-10'>
-                                <div className='container'>
-                                    <p>My Profile:</p>
+                                <div className='container card p-5'>
                                     <div className='row'>
                                         <div className='col-md-3'>
-                                            <p> My images: </p>
+                                        <p>Edit My Profile:</p>
                                         </div>
                                         <div className='col-md-9'>
                                             {profilePicture && <img src={profilePicture.url} key={profilePicture.public_id} alt={profilePicture.public_id} style={{ height: '100px' }} className='float-right my-2' />}
@@ -130,7 +129,7 @@ const MyProfile = () => {
                                                 value={name || ''}
                                                 onChange={handleInputChange}
                                                 className='form-control'
-                                                placeholder='name'
+                                                placeholder='Name'
                                                 disabled={loading} />
                                         </div>
                                         <div className='form-group'>
@@ -140,7 +139,7 @@ const MyProfile = () => {
                                                 value={about || ''}
                                                 onChange={handleInputChange}
                                                 className='form-control'
-                                                placeholder='about'
+                                                placeholder='Write something about me!'
                                                 disabled={loading} />
                                         </div>
                                         <div className='form-group'>

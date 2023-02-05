@@ -104,6 +104,7 @@ const CreatePost = () => {
                             </div>
                             <div className='col-md-10'>
                                 <div className='container p-5'>
+                                    <div className='card p-4'>
                                     {loading ? <p>Loading...</p> : <h4>Create Post</h4>}
                                     <div className='row'>
                                         <div className='col-md-4'>
@@ -124,7 +125,7 @@ const CreatePost = () => {
                                         <div className='col-md-8'>
 
                                             <form onSubmit={handleFormSubmit}>
-                                                <div className='form-group'>
+                                                <div className='form-group py-4'>
                                                     <textarea
                                                         value={text}
                                                         onChange={handleFormChange}
@@ -137,18 +138,21 @@ const CreatePost = () => {
                                                     >
                                                     </textarea>
                                                 </div>
-                                                <button className='btn btn-primary' type='submit' disabled={!text}>Post</button>
+                                                <button className='btn btn-primary float-right' type='submit' disabled={!text}>Post</button>
                                             </form>
                                         </div>
                                     </div>
-                                    <hr />
-                                    <div className='row p-5'>
+                                    </div>
+                                    <div className='card p-5 my-5'>
+                                    <h4 className='text-center p-2'>My Posts</h4>
+                                    <div className='row p-3'>
                                         {posts &&
                                             posts.postByUser.map(post => (
                                                 <div className='col-md-4 p-2' key={post._id}>
                                                     <PostCard post={post} handleDelete={handleDelete} showDeleteButton={true}/>
                                                 </div>
                                             ))}
+                                    </div>
                                     </div>
                                 </div>
                             </div>

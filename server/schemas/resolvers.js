@@ -29,7 +29,7 @@ const resolvers = {
         allPosts: async (parent, args) => {
             const currentPage = args.page || 1
             const perPage = 6
-            return await Post.find({}).skip((currentPage -1) * perPage).populate('author').limit(perPage).sort({ createdAt: -1 })
+            return await Post.find({}).skip((currentPage - 1) * perPage).populate('author').limit(perPage).sort({ createdAt: -1 })
         },
         postByUser: async (parent, args, context) => {
             if (context.user) {

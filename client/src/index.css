@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Architects Daughter', cursive;
+  font-family: 'Permanent Marker', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: lightslategray;
@@ -37,4 +37,13 @@ code {
 
 .homenavbar {
   background-color: #4d0000;
+}
+
+.nav-heading {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.page-link {
+  background-color: lemonchiffon;
 }

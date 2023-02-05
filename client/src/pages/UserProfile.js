@@ -46,6 +46,8 @@ const UserProfile = () => {
                                     </div>
                                 </div>
                             </div>
+                            <hr/>
+                            {JSON.stringify(posts)}
                         </div>
                     </div>
                 </>

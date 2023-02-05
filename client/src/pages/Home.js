@@ -26,7 +26,7 @@ function Home() {
         for (let i = 1; i <= totalPages; i++) {
             pages.push(
                 <li key={i}>
-                    <button key={`page-${i}`} className={`page-link ${page === i && 'current-page'}`} onClick={() => setPage(i)}>{i}</button>
+                    <button key={`page-${i}`} className={`page-link text-danger ${page === i && 'current-page'}`} onClick={() => setPage(i)}>{i}</button>
                 </li>
             );
         }
@@ -49,11 +49,11 @@ function Home() {
             <nav>
                 <ul className='pagination justify-content-center'>
                     <li>
-                        <button className={`page-link ${page === 1 && 'disable'}`} onClick={() => setPage(1)}>Back</button>
+                        <button className={`page-link text-danger ${page === 1 && 'disable'}`} onClick={() => setPage(1)}>Back</button>
                     </li>
                     {pagination()}
                     <li>
-                        <button className={`page-link ${page === totalPages && 'disable'}`} onClick={() => setPage(totalPages)}>Next</button>
+                        <button className={`page-link text-danger ${page === totalPages && 'disable'}`} onClick={() => setPage(totalPages)}>Next</button>
                     </li>
                 </ul>
 

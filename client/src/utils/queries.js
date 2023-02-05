@@ -19,8 +19,8 @@ export const GET_CATEGORIES = gql`
 `;
 
 export const GET_ALL_POSTS = gql`
-  query Query {
-    allPosts {
+  query Query($page: Int!) {
+    allPosts(page: $page) {
       _id
       text
       image {
@@ -35,6 +35,12 @@ export const GET_ALL_POSTS = gql`
     }
   }
 `;
+
+export const GET_TOTAL_POSTS = gql`
+ query Query {
+  totalPosts
+ }
+`
 
 export const GET_POST_BY_USER = gql`
   query Query {

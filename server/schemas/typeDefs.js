@@ -93,7 +93,8 @@ const typeDefs = gql`
     profile: User!
     singleUser(username: String!): User!
     allUsers: [User!]
-    allPosts: [Post]
+    totalPosts: Int!
+    allPosts(page: Int): [Post]
     postByUser: [Post!]!
     singlePost(postId: String!): Post!
     product(_id: ID!): Product

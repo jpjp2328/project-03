@@ -96,6 +96,7 @@ const typeDefs = gql`
     totalPosts: Int!
     allPosts(page: Int): [Post]
     postByUser: [Post!]!
+    postsForProfile(_id: String!): [Post!]!
     singlePost(postId: String!): Post!
     product(_id: ID!): Product
     products(category: ID!, name: String): [Product]

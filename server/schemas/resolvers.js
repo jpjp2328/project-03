@@ -37,6 +37,9 @@ const resolvers = {
             }
             throw new AuthenticationError("You need to be logged in!");
         },
+        postsForProfile: async (parent, args) => {
+            return await Post.find({ author: args }).populate('author');
+        },
         singlePost: async (parent, args) => {
             return await Post.findById({ _id: args.postId }).populate('author');
         },

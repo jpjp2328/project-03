@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import Auth from '../utils/auth';
 import Sidebar from '../components/Sidebar'
-import { CREATE_POST } from '../utils/mutations';
+import { CREATE_POST, DELETE_POST } from '../utils/mutations';
 import { GET_POST_BY_USER } from '../utils/queries';
 import PostCard from '../components/PostCard';
 
@@ -26,10 +26,24 @@ const CreatePost = () => {
 
     const [createPost] = useMutation(CREATE_POST);
 
+    const [deletePost] = useMutation(DELETE_POST);
+
+    const handleDelete = async postId => {
+        setLoading(true);
+        deletePost({
+            variables: { postId },
+            refetchQueries: [{query: GET_POST_BY_USER}]
+        })
+        setLoading(false);
+    }
+
     const handleFormSubmit = async (event) => {
         event.preventDefault()
         setLoading(true);
-        createPost({ variables: { input: values } });
+        createPost({
+            variables: { input: values },
+            refetchQueries: [{query: GET_POST_BY_USER}]
+        });
         setValues({
             text: '',
             image: {
@@ -144,7 +158,7 @@ const CreatePost = () => {
                                         {posts &&
                                             posts.postByUser.map(post => (
                                                 <div className='col-md-4 p-2' key={post._id}>
-                                                    <PostCard post={post} />
+                                                    <PostCard post={post} handleDelete={handleDelete} showDeleteButton={true}/>
                                                 </div>
                                             ))}
                                     </div>

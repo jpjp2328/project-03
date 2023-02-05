@@ -1,13 +1,17 @@
 import React from 'react';
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, showDeleteButton = false, handleDelete = (f) => f }) => {
     const { text, image, author } = post
     return (
         <div className='card text-center' style={{ minHeight: '350px' }}>
             <div className='card-body'>
                 <img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='img-thumbnail m-3' />
-                <h4 className='text-primary'>{author.username}</h4>
-                <p>{text}</p>
+                <h4 className='text-primary'>{text}</h4>
+                <p>{author.username}</p>
+                <hr/>
+                {showDeleteButton && (
+                    <button onClick={() => handleDelete(post._id)} className='btn btn-danger'>Delete</button>
+                )}
             </div>
         </div>
     )

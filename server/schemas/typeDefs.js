@@ -20,9 +20,11 @@ const typeDefs = gql`
   }
 
   type Post {
-    id: ID!
-    title: String!
-    description: String!
+    _id: ID!
+    text: String!
+    image: Image
+    author: User
+    createdAt: DateTime
   }
 
   type Product {
@@ -81,15 +83,19 @@ const typeDefs = gql`
     about: String
   }
 
+  input createPostInput {
+    text: String!
+    image: ImageInput
+  }
+
   # Query types
   type Query {
-    totalPosts: Int!
-    allPosts: [Post]
     profile: User!
     singleUser(username: String!): User!
     allUsers: [User!]
-    post(_id: ID!): Post
-    posts(tag: ID!, name: String): [Post]
+    allPosts: [Post]
+    postByUser: [Post!]!
+    singlePost(postId: String!): Post!
     product(_id: ID!): Product
     products(category: ID!, name: String): [Product]
     tags: [Tag]
@@ -100,13 +106,12 @@ const typeDefs = gql`
 
   # Mutation types
   type Mutation {
-    newPost(input: PostInput!): Post!
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     updateUser(input: UpdateUserInput): User!
-    createPost(text: String!, image: String, tags: [String]): Post
+    createPost(input: createPostInput!): Post!
+    deletePost(postId: String!): Post
     updatePost(_id: ID!, text: String, image: String, tags: [String]): Post
-    deletePost(_id: ID!): User
     createProduct(name: String!, description: String, price: Float, image: String, category: String): Product
     updateProduct(_id: ID!, name: String, description: String, price: Float, image: String, category: String): Product
     deleteProduct(_id: ID!): User

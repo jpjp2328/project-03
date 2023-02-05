@@ -7,8 +7,6 @@ const { posts } = require('../postData')
 
 const resolvers = {
     Query: {
-        totalPosts: () => posts.length,
-        allPosts: () => posts,
         profile: async (parent, args, context) => {
             if (context.user) {
                 return await User.findOne({ _id: context.user._id });
@@ -25,25 +23,17 @@ const resolvers = {
         allUsers: async (parent, args) => {
             return await User.find({})
         },
-        post: async (parents, args) => {
-            return Post.findOne({ _id: args._id })
-                .populate(['author', 'tags', 'likes', 'comments']);
+        allPosts: async (parent, args) => {
+            return await Post.find({}).populate('author').sort({ createdAt: -1 })
         },
-        posts: async (parents, { tag, name }) => {
-            const params = {};
-
-            if (tag) {
-                params.tag = tag;
+        postByUser: async (parent, args, context) => {
+            if (context.user) {
+                return await Post.find({ author: context.user._id }).populate('author').sort({ createdAt: -1 });
             }
-
-            if (name) {
-                params.name = {
-                    $regex: name,
-                };
-            }
-
-            return Post.find(params)
-                .populate(['author', 'tags', 'likes', 'comments']);
+            throw new AuthenticationError("You need to be logged in!");
+        },
+        singlePost: async (parent, args) => {
+            return await Post.findById({ _id: args.postId }).populate('author');
         },
         product: async (parent, args) => {
             return Product.findOne({ _id: args._id })
@@ -78,17 +68,6 @@ const resolvers = {
     },
 
     Mutation: {
-        newPost: (parent, args) => {
-
-            console.log(args)
-            const post = {
-                id: posts.length + 1,
-                title: args.input.title,
-                description: args.input.description
-            }
-            posts.push(post)
-            return post;
-        },
         addUser: async (parent, { username, email, password }) => {
             const user = await User.create({ username, email, password });
             const token = signToken(user);
@@ -125,13 +104,22 @@ const resolvers = {
         },
         createPost: async (parent, args, context) => {
             if (context.user) {
-                const post = await Post.create({ ...args, author: context.user._id });
-                await User.findByIdAndUpdate(
-                    context.user._id,
-                    { $push: { posts: post._id } },
-                    { new: true }
-                );
-                return post;
+                const newPost = await Post.create({ ...args.input, author: context.user._id });
+                const populatedPost = await newPost.populate('author').execPopulate();
+                return populatedPost;
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+        deletePost: async (parent, args, context) => {
+            if (context.user) {
+                const currentUser = await User.findOne({ _id: context.user._id });
+                const postToDelete = await Post.findById({ _id: args.postId });
+
+                if (currentUser._id.toString() !== postToDelete.author._id.toString())
+                    throw new Error('Unauthorised');
+
+                let deletedPost = await Post.findByIdAndDelete({ _id: args.postId });
+                return deletedPost;
             }
             throw new AuthenticationError('You need to be logged in!');
         },
@@ -143,17 +131,6 @@ const resolvers = {
                     { new: true }
                 );
                 return post;
-            }
-            throw new AuthenticationError('You need to be logged in!');
-        },
-        deletePost: async (parent, args, context) => {
-            if (context.user) {
-                await Post.findByIdAndDelete(args._id);
-                return User.findByIdAndUpdate(
-                    context.user._id,
-                    { $pull: { posts: args._id } },
-                    { new: true }
-                );
             }
             throw new AuthenticationError('You need to be logged in!');
         },

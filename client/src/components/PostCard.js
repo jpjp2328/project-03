@@ -1,11 +1,14 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const PostCard = ({ post, showDeleteButton = false, handleDelete = (f) => f }) => {
     const { text, image, author } = post
+    const navigate = useNavigate();
+
     return (
         <div className='card text-center' style={{ minHeight: '350px' }}>
             <div className='card-body'>
-                <img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='img-thumbnail m-3' />
+                <img onClick={() => navigate(`/post/${post._id}`)} src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='img-thumbnail m-3' />
                 <h4 className='text-primary'>{text}</h4>
                 <p>{author.username}</p>
                 <hr/>

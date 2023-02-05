@@ -12,6 +12,7 @@ import MyProfile from './pages/MyProfile'
 import CreatePost from './pages/CreatePost'
 import FriendList from './pages/FriendList';
 import UserProfile from './pages/UserProfile';
+import SinglePost from './pages/SinglePost';
 
 
 const httpLink = createHttpLink({
@@ -67,6 +68,10 @@ function App() {
             <Route
               exact path='/post/create'
               element={<CreatePost />}
+            />
+            <Route
+              exact path='/post/:postId'
+              element={<SinglePost />}
             />
             <Route
               exact path='/user/friends'

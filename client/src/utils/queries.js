@@ -54,6 +54,24 @@ export const GET_POST_BY_USER = gql`
   }
 `;
 
+export const GET_SINGLE_POST = gql`
+  query Query($postId: String!) {
+    singlePost(postId: $postId) {
+      _id
+      text
+      image {
+        url
+        public_id
+      }
+      author {
+        _id
+        username
+      }
+      createdAt
+    }
+  }
+`;
+
 export const GET_PROFILE = gql`
   query Query {
     profile {

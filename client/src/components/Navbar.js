@@ -8,7 +8,7 @@ const Navbar = () => {
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <Link className="navbar-brand" to="/">Navbar</Link>
+                <Link className="navbar-brand" to="/">LTB</Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -17,6 +17,9 @@ const Navbar = () => {
                     <ul className="navbar-nav mr-auto">
                         {Auth.loggedIn() ? (
                             <>
+                                <li className="nav-item active">
+                                    <Link className="nav-link" to='/'> Home <span className="sr-only">(current)</span></Link>
+                                </li>
                                 <li className="nav-item active">
                                     <Link className="nav-link" to={`/user/${Auth.getProfile().data.username}`}>{Auth.getProfile().data.username}'s Profile <span className="sr-only">(current)</span></Link>
                                 </li>
@@ -29,7 +32,7 @@ const Navbar = () => {
                                 <li className="nav-item active">
                                     <Link className="nav-link" to="/login">Login <span className="sr-only">(current)</span></Link>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item active">
                                     <Link className="nav-link" to="/signup">SignUp</Link>
                                 </li>
                             </>

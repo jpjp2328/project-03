@@ -28,7 +28,7 @@ const UserProfile = () => {
                                 {<Sidebar />}
                             </div>
                             <div className='col-md-10'>
-                                <div className='container'>
+                                <div className='container justify-content-center' style={{ display: 'flex', justifyContent: 'center' }}>
                                     <br/>
                                     <UserCard user={data.singleUser} />
                                 </div>

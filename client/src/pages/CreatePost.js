@@ -32,7 +32,7 @@ const CreatePost = () => {
         setLoading(true);
         deletePost({
             variables: { postId },
-            refetchQueries: [{query: GET_POST_BY_USER}]
+            refetchQueries: [{ query: GET_POST_BY_USER }]
         })
         setLoading(false);
     }
@@ -42,7 +42,7 @@ const CreatePost = () => {
         setLoading(true);
         createPost({
             variables: { input: values },
-            refetchQueries: [{query: GET_POST_BY_USER}]
+            refetchQueries: [{ query: GET_POST_BY_USER }]
         });
         setValues({
             text: '',
@@ -105,54 +105,54 @@ const CreatePost = () => {
                             <div className='col-md-10'>
                                 <div className='container p-5'>
                                     <div className='card p-4'>
-                                    {loading ? <p>Loading...</p> : <h4>Create Post</h4>}
-                                    <div className='row'>
-                                        <div className='col-md-4'>
-                                            {image && <img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='float-right my-2' />}
-                                            <div className='py-3'>
-                                                <div className='form-group'>
-                                                    <label>Selected Image:</label>
-                                                    <input
-                                                        type='file'
-                                                        accept='image/*'
-                                                        onChange={handleImageChange}
-                                                        className='form-control'
-                                                        placeholder='profile-picture'
-                                                        disabled={loading} />
+                                        {loading ? <p>Loading...</p> : <h4>Create Post</h4>}
+                                        <div className='row'>
+                                            <div className='col-md-4'>
+                                                {image && <img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='float-right my-2' />}
+                                                <div className='py-3'>
+                                                    <div className='form-group'>
+                                                        <label>Selected Image:</label>
+                                                        <input
+                                                            type='file'
+                                                            accept='image/*'
+                                                            onChange={handleImageChange}
+                                                            className='form-control'
+                                                            placeholder='profile-picture'
+                                                            disabled={loading} />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className='col-md-8'>
+                                            <div className='col-md-8'>
 
-                                            <form onSubmit={handleFormSubmit}>
-                                                <div className='form-group py-4'>
-                                                    <textarea
-                                                        value={text}
-                                                        onChange={handleFormChange}
-                                                        name="text"
-                                                        row='10'
-                                                        className='md-textarea form-control'
-                                                        placeholder="What's on your mind"
-                                                        maxLength={200}
-                                                        disabled={loading}
-                                                    >
-                                                    </textarea>
-                                                </div>
-                                                <button className='btn btn-primary float-right' type='submit' disabled={!text}>Post</button>
-                                            </form>
+                                                <form onSubmit={handleFormSubmit}>
+                                                    <div className='form-group py-4'>
+                                                        <textarea
+                                                            value={text}
+                                                            onChange={handleFormChange}
+                                                            name="text"
+                                                            row='10'
+                                                            className='md-textarea form-control'
+                                                            placeholder="What's on your mind"
+                                                            maxLength={200}
+                                                            disabled={loading}
+                                                        >
+                                                        </textarea>
+                                                    </div>
+                                                    <button className='btn btn-primary float-right' type='submit' disabled={!text}>Post</button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
                                     </div>
                                     <div className='card p-5 my-5'>
-                                    <h4 className='text-center p-2'>My Posts</h4>
-                                    <div className='row p-3'>
-                                        {posts &&
-                                            posts.postByUser.map(post => (
-                                                <div className='col-md-4 p-2' key={post._id}>
-                                                    <PostCard post={post} handleDelete={handleDelete} showDeleteButton={true}/>
-                                                </div>
-                                            ))}
-                                    </div>
+                                        <h4 className='text-center p-2'>My Posts</h4>
+                                        <div className='row p-3'>
+                                            {posts &&
+                                                posts.postByUser.map(post => (
+                                                    <div className='col-md-4 p-2' key={post._id}>
+                                                        <PostCard post={post} handleDelete={handleDelete} showDeleteButton={true} />
+                                                    </div>
+                                                ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

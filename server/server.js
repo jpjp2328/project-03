@@ -55,17 +55,6 @@ app.post('/uploadimages', (req, res) => {
     });
 });
 
-// remove image
-app.post('/removeimage', (req, res) => {
-  let image_id = req.body.public_id
-
-  cloudinary.uploader.destroy(image_id, (error, result) => {
-    if (error) return res.json({ success: false, error });
-    res.send('success')
-
-  });
-});
-
 // Create a new instance of an Apollo server with the GraphQL schema
 const startApolloServer = async (typeDefs, resolvers) => {
   await server.start();

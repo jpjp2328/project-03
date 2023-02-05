@@ -93,18 +93,6 @@ const CreatePost = () => {
         };
     };
 
-    const handleRemoveImage = (id) => {
-        setLoading(true)
-        axios.post('http://localhost:3001/uploadimages', { public_id: id })
-            .then(response => {
-                setLoading(false);
-                setValues({ ...values, image: { url: '', public_id: '' } })
-            }).catch(error => {
-                setLoading(false)
-                console.log(error)
-            })
-    };
-
     return (
         <div>
             {Auth.loggedIn() ? (
@@ -119,7 +107,7 @@ const CreatePost = () => {
                                     {loading ? <p>Loading...</p> : <h4>Create Post</h4>}
                                     <div className='row'>
                                         <div className='col-md-4'>
-                                            {image && <img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='float-right my-2' onClick={() => handleRemoveImage(image.public_id)} />}
+                                            {image && <img src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='float-right my-2' />}
                                             <div className='py-3'>
                                                 <div className='form-group'>
                                                     <label>Selected Image:</label>

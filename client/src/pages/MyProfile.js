@@ -91,18 +91,6 @@ const MyProfile = () => {
         };
     };
 
-    const handleRemoveImage = (id) => {
-        setLoading(true)
-        axios.post('http://localhost:3001/uploadimages', { public_id: id })
-            .then(response => {
-                setLoading(false)
-                setProfileFormData({ ...profileFormData, profilePicture: { url: '', public_id: '' } })
-            }).catch(error => {
-                setLoading(false)
-                console.log(error)
-            })
-    }
-
     return (
         <div>
             {Auth.loggedIn() ? (
@@ -120,7 +108,7 @@ const MyProfile = () => {
                                             <p> My images: </p>
                                         </div>
                                         <div className='col-md-9'>
-                                            {profilePicture && <img src={profilePicture.url} key={profilePicture.public_id} alt={profilePicture.public_id} style={{ height: '100px' }} className='float-right my-2' onClick={() => handleRemoveImage(profilePicture.public_id)} />}
+                                            {profilePicture && <img src={profilePicture.url} key={profilePicture.public_id} alt={profilePicture.public_id} style={{ height: '100px' }} className='float-right my-2' />}
                                         </div>
                                     </div>
                                     <form onSubmit={handleFormSubmit} className='py-3'>

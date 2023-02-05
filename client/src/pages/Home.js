@@ -25,8 +25,8 @@ function Home() {
         let pages = [];
         for (let i = 1; i <= totalPages; i++) {
             pages.push(
-                <li>
-                    <button className={`page-link ${page === i && 'current-page'}`} onClick={() => setPage(i)}>{i}</button>
+                <li key={i}>
+                    <button key={`page-${i}`} className={`page-link ${page === i && 'current-page'}`} onClick={() => setPage(i)}>{i}</button>
                 </li>
             );
         }

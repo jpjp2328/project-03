@@ -104,7 +104,7 @@ const CreatePost = () => {
                             </div>
                             <div className='col-md-10'>
                                 <div className='container p-5'>
-                                    <div className='card p-4'>
+                                    <div className='card p-4 create-card'>
                                         {loading ? <p>Loading...</p> : <h4>Create Post</h4>}
                                         <div className='row'>
                                             <div className='col-md-4'>
@@ -132,8 +132,8 @@ const CreatePost = () => {
                                                             name="text"
                                                             row='10'
                                                             className='md-textarea form-control'
-                                                            placeholder="What's on your mind"
-                                                            maxLength={200}
+                                                            placeholder="Looking to Buy/Sell? or simply post your thoughts..."
+                                                            maxLength={300}
                                                             disabled={loading}
                                                         >
                                                         </textarea>
@@ -143,7 +143,7 @@ const CreatePost = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='card p-5 my-5'>
+                                    <div className='card p-5 my-5 myposts'>
                                         <h4 className='text-center p-2'>My Posts</h4>
                                         <div className='row p-3'>
                                             {posts &&

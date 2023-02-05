@@ -101,7 +101,7 @@ const MyProfile = () => {
                                 {<Sidebar />}
                             </div>
                             <div className='col-md-10'>
-                                <div className='container card p-5'>
+                                <div className='container card p-5 edit-profile'>
                                     <div className='row'>
                                         <div className='col-md-3'>
                                         <p>Edit My Profile:</p>

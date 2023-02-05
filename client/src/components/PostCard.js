@@ -6,9 +6,9 @@ const PostCard = ({ post, showDeleteButton = false, handleDelete = (f) => f }) =
     const navigate = useNavigate();
 
     return (
-        <div className='card text-center' style={{ minHeight: '350px' }}>
+        <div className='card text-center post-card' style={{ minHeight: '350px' }}>
             <div className='card-body'>
-                <img onClick={() => navigate(`/post/${post._id}`)} src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '150px' }} className='img-thumbnail m-3' />
+                <img onClick={() => navigate(`/post/${post._id}`)} src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '140px' }} className='img-thumbnail m-3' />
                 <h4 className='text-primary'>{text}</h4>
                 <hr/>
                 <p onClick={() => navigate(`/user/${author.username}`)}>{author.username}</p>

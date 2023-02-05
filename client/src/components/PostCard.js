@@ -8,10 +8,10 @@ const PostCard = ({ post, showDeleteButton = false, handleDelete = (f) => f }) =
     return (
         <div className='card text-center' style={{ minHeight: '350px' }}>
             <div className='card-body'>
-                <img onClick={() => navigate(`/post/${post._id}`)} src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '100px' }} className='img-thumbnail m-3' />
+                <img onClick={() => navigate(`/post/${post._id}`)} src={image.url} key={image.public_id} alt={image.public_id} style={{ height: '150px' }} className='img-thumbnail m-3' />
                 <h4 className='text-primary'>{text}</h4>
-                <p onClick={() => navigate(`/user/${author.username}`)}>{author.username}</p>
                 <hr/>
+                <p onClick={() => navigate(`/user/${author.username}`)}>{author.username}</p>
                 {showDeleteButton && (
                     <button onClick={() => handleDelete(post._id)} className='btn btn-danger'>Delete</button>
                 )}

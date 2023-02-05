@@ -68,13 +68,13 @@ const CreatePost = () => {
             try {
                 Resizer.imageFileResizer(
                     event.target.files[0],
-                    800,
-                    800,
+                    400,
+                    400,
                     "JPEG, PNG",
                     100,
                     0,
                     (uri) => {
-                        //console.log(uri);
+                        console.log(uri);
                         axios.post('http://localhost:3001/uploadimages', { image: uri })
                             .then(response => {
                                 setLoading(false);
@@ -84,8 +84,8 @@ const CreatePost = () => {
                             })
                     },
                     "base64",
-                    200,
-                    200
+                    300,
+                    300
                 )
             } catch (err) {
                 console.log(err);

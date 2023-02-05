@@ -27,7 +27,9 @@ const resolvers = {
             return await Post.find({}).estimatedDocumentCount();
         },
         allPosts: async (parent, args) => {
-            return await Post.find({}).populate('author').sort({ createdAt: -1 })
+            const currentPage = args.page || 1
+            const perPage = 6
+            return await Post.find({}).skip((currentPage -1) * perPage).populate('author').limit(perPage).sort({ createdAt: -1 })
         },
         postByUser: async (parent, args, context) => {
             if (context.user) {

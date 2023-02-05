@@ -94,7 +94,7 @@ const typeDefs = gql`
     singleUser(username: String!): User!
     allUsers: [User!]
     totalPosts: Int!
-    allPosts: [Post]
+    allPosts(page: Int): [Post]
     postByUser: [Post!]!
     singlePost(postId: String!): Post!
     product(_id: ID!): Product

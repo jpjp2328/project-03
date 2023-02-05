@@ -11,7 +11,7 @@ const postSchema = new Schema(
         image: {
             url: { 
                 type: String,
-                default: 'https://via.placeholder.com/200x200.png?text=Post'
+                default: 'https://www.shareicon.net/data/256x256/2017/07/13/888370_business_512x512.png'
             },
             public_id: {
                 type: String,

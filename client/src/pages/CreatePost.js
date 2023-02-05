@@ -14,7 +14,7 @@ const CreatePost = () => {
     const [values, setValues] = useState({
         text: '',
         image: {
-            url: 'https://via.placeholder.com/200x200.png?text=Post',
+            url: 'https://www.shareicon.net/data/256x256/2017/07/13/888370_business_512x512.png',
             public_id: '123'
         }
     });
@@ -47,7 +47,7 @@ const CreatePost = () => {
         setValues({
             text: '',
             image: {
-                url: 'https://via.placeholder.com/200x200.png?text=Post',
+                url: 'https://www.shareicon.net/data/256x256/2017/07/13/888370_business_512x512.png',
                 public_id: '123'
             }
         });
@@ -68,8 +68,8 @@ const CreatePost = () => {
             try {
                 Resizer.imageFileResizer(
                     event.target.files[0],
-                    300,
-                    300,
+                    800,
+                    800,
                     "JPEG, PNG",
                     100,
                     0,

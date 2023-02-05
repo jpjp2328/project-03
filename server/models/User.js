@@ -24,7 +24,7 @@ const userSchema = new Schema(
         profilePicture: {
             type: Array,
             default: {
-                url:'https://via.placeholder.com/200x200.png?text=Profile',
+                url:'https://www.shareicon.net/data/256x256/2016/01/03/697483_user_512x512.png',
                 public_id: Date.now
             }
         },

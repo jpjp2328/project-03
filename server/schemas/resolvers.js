@@ -23,6 +23,9 @@ const resolvers = {
         allUsers: async (parent, args) => {
             return await User.find({})
         },
+        totalPosts: async (parent, args) => {
+            return await Post.find({}).estimatedDocumentCount();
+        },
         allPosts: async (parent, args) => {
             return await Post.find({}).populate('author').sort({ createdAt: -1 })
         },

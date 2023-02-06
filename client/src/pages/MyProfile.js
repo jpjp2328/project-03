@@ -104,7 +104,7 @@ const MyProfile = () => {
                                 <div className='container card p-5 edit-profile'>
                                     <div className='row'>
                                         <div className='col-md-3'>
-                                        <p>Edit My Profile:</p>
+                                        <h4>Edit My Profile:</h4>
                                         </div>
                                         <div className='col-md-9'>
                                             {profilePicture && <img src={profilePicture.url} key={profilePicture.public_id} alt={profilePicture.public_id} style={{ height: '100px' }} className='float-right my-2' />}

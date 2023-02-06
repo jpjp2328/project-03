@@ -18,7 +18,7 @@ A Social Media Application where Users can create/view/like/comment on posts as 
 
 ## Deployment
 Note - Application still in development
-Heroku URL - 
+Heroku URL ver.1 - https://postitmart.herokuapp.com/
 
 ## Installation
 - To install necessary dependencies, run the following commands:

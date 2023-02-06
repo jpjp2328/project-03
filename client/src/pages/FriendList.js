@@ -21,7 +21,11 @@ const FriendList = () => {
                                 {<Sidebar />}
                             </div>
                             <div className='col-md-10'>
+                                <div className='container py-5'>
+                                    <h4>FriendsList</h4>
+                                </div>
                                 <div className='container'>
+                                    <h4> Look for Friends</h4>
                                     <div className='row p-5'>
                                         {data.allUsers.map(user => (
                                             <div className='col-md-3 p-2' key={user._id}>

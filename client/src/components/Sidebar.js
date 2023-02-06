@@ -7,17 +7,17 @@ const Sidebar = () => {
             <ul className='nav flex-column'>
                 <li className='nav-item'>
                     <Link className='nav-link text-dark' to='/profile'>
-                        Edit My Profile
+                        <h5>Edit My Profile</h5>
                     </Link>
                 </li>
                 <li className='nav-item'>
                     <Link className='nav-link text-dark' to='/post/create'>
-                        My Posts
+                        <h5>My Posts</h5>
                     </Link>
                 </li>
                 <li className='nav-item'>
                     <Link className='nav-link text-dark' to='/user/friends'>
-                        Friends
+                        <h5>Friends</h5>
                     </Link>
                 </li>
             </ul>

@@ -4,6 +4,8 @@
 ## Description
 A Social Media Application where Users can create/view/like/comment on posts as well as add Friends with other users. Would also like to implement marketplace section where users can also post Products that they want to sell which would be a different type of post. Users would also be able to search for posts or click categories/tags button to see all posts with those categories/tags.
 
+## Inspiration
+Everyone has seen or used Post it notes before, they are so popular because of how easy it is to just jot down something and stick it up. They are used mostly to jot down notes or reminders. But why not quickly jot down how your day went, or something amazing you saw, maybe jot down your shower thoughts that you want to share and go back to, a strange dream you had,  before you forget.  This is an application where users can jot all of these as well as sharing and connecting to the rest of the world. Even stuff sitting around your house you were looking to sell or buy but never got around to it. Just post it here, it's easy, simple, convenient and fast!
 
 ## Table of Contents
 - [Deployment](#deployment)
